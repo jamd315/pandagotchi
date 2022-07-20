@@ -37,7 +37,7 @@ void Animator::startAnimationSequence(const AnimationSequence &sequence)
   Serial.print(F("Starting sequence "));
   Serial.println(sequence.id);
   #endif
-  activeAnimationElement = (AnimationElement*) pgm_read_byte(&sequence.head);
+  activeAnimationElement = (AnimationElement*) pgm_read_ptr(&sequence.head);
   callbackAnimation();
 }
 

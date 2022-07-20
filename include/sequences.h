@@ -242,7 +242,7 @@ static const PROGMEM AnimationElement _seq2_elem8 =
 static const PROGMEM AnimationSequence testAnimation = 
 {
   .id = 222,
-  .head = &_seq2_elem5
+  .head = &_seq2_elem8
 };
 #pragma endregion
 
