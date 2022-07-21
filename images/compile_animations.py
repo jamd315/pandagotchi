@@ -1,7 +1,6 @@
 import platformio
 
 import copy
-import uuid
 
 env = DefaultEnvironment()
 try:
@@ -163,7 +162,7 @@ def main():
         f.write('#include "Animator.h"\n')
         f.write("\n")
         for sequence in sequences:
-            print(f"Defined sequence {sequence.name}")
+            print(f"Defined animation sequence {sequence.name}")
             f.write(sequence.render_header())
         f.write("\n#endif")
 
