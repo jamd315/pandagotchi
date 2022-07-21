@@ -29,12 +29,21 @@ typedef struct AnimationSequence
     const AnimationElement *head;
 } AnimationSequence;
 
-struct SoundElement
+// This is in PROGMEM
+typedef struct SoundElement
 {
     uint16_t frequency;
     uint16_t duration;
     uint16_t delay;
-};
+    const SoundElement *next;
+} SoundElement;
+
+// This is in PROGMEM
+typedef struct SoundSequence
+{
+    uint8_t id;  // Just for debugging
+    const SoundElement *head;
+} SoundSequence;
 
 
 class Animator
@@ -44,22 +53,28 @@ public:
     void callbackAnimation();
     void callbackSound();
     void startAnimationSequence(const AnimationSequence &sequence);
+    void startSoundSequence(const SoundSequence &sequence);
     void drawActiveAnimationElement();
 
 protected:
     Task &_animTask;
     Task &_soundTask;
     const AnimationElement *activeAnimationElement;
+    const SoundElement *activeSoundElement;
     Adafruit_SSD1306 &_display;
     uint8_t _speakerPin;
-    inline uint8_t getActiveX();
-    inline uint8_t getActiveY();
-    inline uint8_t getActiveW();
-    inline uint8_t getActiveH();
-    inline uint8_t getActiveMeta();
-    inline uint16_t getActiveDelay();
+    inline uint8_t getAnimX();
+    inline uint8_t getAnimY();
+    inline uint8_t getAnimW();
+    inline uint8_t getAnimH();
+    inline uint8_t getAnimMeta();
+    inline uint16_t getAnimDelay();
     inline const uint8_t *getActiveImage();
-    inline AnimationElement *getNext();
+    inline AnimationElement *getAnimNext();
+    inline uint16_t getSoundFrequency();
+    inline uint16_t getSoundDuration();
+    inline uint16_t getSoundDelay();
+    inline SoundElement *getSoundNext();
 };
 
 #endif

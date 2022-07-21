@@ -11,34 +11,56 @@ Animator::Animator(Task &animTask, Task &soundTask, Adafruit_SSD1306 &display, u
 void Animator::callbackAnimation()
 {
   #ifdef USE_SERIAL
-  Serial.println(F("Callback triggered"));
+  Serial.println(F("Animation callback triggered"));
   #endif
   if (activeAnimationElement == nullptr)
   {
     #ifdef USE_SERIAL
-    Serial.println(F("End of sequence"));
+    Serial.println(F("End of animation sequence"));
     #endif
     return;
   }
   drawActiveAnimationElement();
-  _animTask.restartDelayed(getActiveDelay());
-  activeAnimationElement = getNext();
+  _animTask.restartDelayed(getAnimDelay());
+  activeAnimationElement = getAnimNext();
 }
 
 void Animator::callbackSound()
 {
-
+  #ifdef USE_SERIAL
+  Serial.println(F("Sound callback triggered"));
+  #endif
+  if (activeSoundElement == nullptr)
+  {
+    #ifdef USE_SERIAL
+    Serial.println(F("End of sound sequence"));
+    #endif
+    return;
+  }
+  tone(_speakerPin, getSoundFrequency(), getSoundDuration());
+  _soundTask.restartDelayed(getSoundDuration() + getSoundDelay());
+  activeSoundElement = getSoundNext();
 }
 
 // Starts displaying the given Animation
 void Animator::startAnimationSequence(const AnimationSequence &sequence)
 {
   #ifdef USE_SERIAL
-  Serial.print(F("Starting sequence "));
+  Serial.print(F("Starting animation sequence "));
   Serial.println(sequence.id);
   #endif
   activeAnimationElement = (AnimationElement*) pgm_read_ptr(&sequence.head);
   callbackAnimation();
+}
+
+void Animator::startSoundSequence(const SoundSequence &sequence)
+{
+  #ifdef USE_SERIAL
+  Serial.print(F("Starting sound sequence "));
+  Serial.println(sequence.id);
+  #endif
+  activeSoundElement = (SoundElement *) pgm_read_ptr(&sequence.head);
+  callbackSound();
 }
 
 // Merged the memory and PROGMEM versions of Adafruit GFXs drawBitmap, plus incorporated references to activeAnimationElement rather than parameters.
@@ -58,14 +80,14 @@ void Animator::drawActiveAnimationElement()
   Serial.print(F(" delay="));
   Serial.println(getActiveDelay());
   #endif
-  int16_t byteWidth = (getActiveW() + 7) / 8;
+  int16_t byteWidth = (getAnimW() + 7) / 8;
   uint8_t b = 0;
-  int16_t x = getActiveX();
-  int16_t y = getActiveY();
+  int16_t x = getAnimX();
+  int16_t y = getAnimY();
   const uint8_t *image = getActiveImage();
-  bool clearDisplay = getActiveMeta() & IMAGE_CLEARDISPLAY;
-  bool transparent = getActiveMeta() & IMAGE_TRANSPARENT;
-  bool invert = getActiveMeta() & IMAGE_INVERT;
+  bool clearDisplay = getAnimMeta() & IMAGE_CLEARDISPLAY;
+  bool transparent = getAnimMeta() & IMAGE_TRANSPARENT;
+  bool invert = getAnimMeta() & IMAGE_INVERT;
 
   // Clear if needed
   if (clearDisplay)
@@ -81,9 +103,9 @@ void Animator::drawActiveAnimationElement()
   }
 
   _display.startWrite();
-  for(int16_t j = 0; j < getActiveH(); j++, y++)
+  for(int16_t j = 0; j < getAnimH(); j++, y++)
   {
-    for(int16_t i = 0; i < getActiveW(); i++)
+    for(int16_t i = 0; i < getAnimW(); i++)
     {
       if (i & 7)
         b <<= 1;
@@ -104,64 +126,72 @@ void Animator::drawActiveAnimationElement()
 }
 
 // Helper function to access x value of the activeAnimationElement in PROGMEM
-inline uint8_t Animator::getActiveX()
+inline uint8_t Animator::getAnimX()
 {
   return (uint8_t) pgm_read_byte(&(activeAnimationElement->x));
 }
 
 // Helper function to access y value of the activeAnimationElement in PROGMEM
-inline uint8_t Animator::getActiveY()
+inline uint8_t Animator::getAnimY()
 {
   return (uint8_t) pgm_read_byte(&(activeAnimationElement->y));
 }
 
 // Helper function to access w value of the activeAnimationElement in PROGMEM
-inline uint8_t Animator::getActiveW()
+inline uint8_t Animator::getAnimW()
 {
   return (uint8_t) pgm_read_byte(&(activeAnimationElement->w));
 }
 
 // Helper function to access h value of the activeAnimationElement in PROGMEM
-inline uint8_t Animator::getActiveH()
+inline uint8_t Animator::getAnimH()
 {
   return (uint8_t) pgm_read_byte(&(activeAnimationElement->h));
 }
 
 // Helper function to access meta value of the activeAnimationElement in PROGMEM
-inline uint8_t Animator::getActiveMeta(){
+inline uint8_t Animator::getAnimMeta(){
   return (uint8_t) pgm_read_byte(&(activeAnimationElement->meta));
 }
 
 // Helper function to access delay value of the activeAnimationElement in PROGMEM
-inline uint16_t Animator::getActiveDelay()
+inline uint16_t Animator::getAnimDelay()
 {
   return (uint16_t) pgm_read_word(&(activeAnimationElement->delay));
 }
 
+// Helper function to access image pointer of the activeAnimationElement in PROGMEM
 inline const uint8_t *Animator::getActiveImage()
 {
   return (const uint8_t *) pgm_read_ptr(&(activeAnimationElement->image));
 }
 
-inline AnimationElement *Animator::getNext()
+// Helper function to access next AnimationElement
+inline AnimationElement *Animator::getAnimNext()
 {
   return (AnimationElement *) pgm_read_ptr(&(activeAnimationElement->next));
 }
 
+// Helper function to access frequency of the activeSoundElement in PROGMEM
+inline uint16_t Animator::getSoundFrequency()
+{
+  return (uint16_t) pgm_read_word(&(activeSoundElement->frequency));
+}
 
-/*
-0 display eat_1
-0 sound NOTE_G5 100
-600 sound NOTE_D5 100
-800 display eat_2
-1200 sound NOTE_G4 100
-1200 loop 4 times 700 ms per loop
-  (1200 + 700i) + 0 display eat3
-  (1200 + 700i) + 0 sound NOTE_G3 100
-  (1200 + 700i) + 150 sound NOTE_Gb3 100
-  (1200 + 700i) + 350 display eat_4
-  (1200 + 700i) + 700 continue loop
-4000 display satisfied
-4000 sound NOTE_G4 50
-4075 sound NOTE_G5 100
-*/
+// Helper function to access duration of the activeSoundElement in PROGMEM
+inline uint16_t Animator::getSoundDuration()
+{
+  return (uint16_t) pgm_read_word(&(activeSoundElement->duration));
+}
+
+// Helper function to access delay of the activeSoundElement in PROGMEM
+inline uint16_t Animator::getSoundDelay()
+{
+  return (uint16_t) pgm_read_word(&(activeSoundElement->delay));
+}
+
+// Helper function to access next SoundElement
+inline SoundElement *Animator::getSoundNext()
+{
+  return (SoundElement *) pgm_read_ptr(&(activeSoundElement->next));
+}

@@ -9,6 +9,7 @@
 #include "Animator.h"
 #include "images.h"
 #include "sequences.h"
+#include "sounds.h"
 #include "notes.h"
 #include "freemem.h"
 
@@ -167,6 +168,7 @@ void callbackSoundWrapper()
 void testAnimator()
 {
   animator.startAnimationSequence(testAnimation);
+  animator.startSoundSequence(testSound);
 }
 
 #ifdef USE_SERIAL
