@@ -1,5 +1,5 @@
-#ifndef _ANIMATIONMANAGER_H
-#define _ANIMATIONMANAGER_H
+#ifndef _ANIMATOR_H
+#define _ANIMATOR_H
 #include <Arduino.h>
 #include <TaskSchedulerDeclarations.h>
 #include <Adafruit_SSD1306.h>

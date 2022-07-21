@@ -28,7 +28,7 @@ uint8_t menuIndex = 0;
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Scheduler ts;
-// These 2 get consumed by AnimationManager to trigger animation and sound.
+// These 2 get consumed by Animator to trigger animation and sound.
 Task animTask(TASK_IMMEDIATE, TASK_ONCE, callbackAnimationWrapper, &ts, true);
 Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
 #ifdef USE_SERIAL
