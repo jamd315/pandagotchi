@@ -70,15 +70,15 @@ void Animator::drawActiveAnimationElement()
   #ifdef USE_SERIAL
   Serial.println(F("Called drawActiveAnimationElement"));
   Serial.print(F("x="));
-  Serial.print(getActiveX());
+  Serial.print(getAnimX());
   Serial.print(F(" y="));
-  Serial.print(getActiveY());
+  Serial.print(getAnimY());
   Serial.print(F(" w="));
-  Serial.print(getActiveW());
+  Serial.print(getAnimW());
   Serial.print(F(" h="));
-  Serial.print(getActiveH());
+  Serial.print(getAnimH());
   Serial.print(F(" delay="));
-  Serial.println(getActiveDelay());
+  Serial.println(getAnimDelay());
   #endif
   int16_t byteWidth = (getAnimW() + 7) / 8;
   uint8_t b = 0;
