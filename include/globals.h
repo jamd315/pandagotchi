@@ -1,3 +1,6 @@
+#ifndef _PANDAGOTCHI_GLOBALS_H
+#define _PANDAGOTCHI_GLOBALS_H
+
 // Graphics stuff
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -22,3 +25,5 @@
 // Settings (comment out as needed)
 //#define USE_SERIAL
 #define USE_SOUND
+
+#endif
