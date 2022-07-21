@@ -31,7 +31,9 @@ Scheduler ts;
 // These 2 get consumed by AnimationManager to trigger animation and sound.
 Task animTask(TASK_IMMEDIATE, TASK_ONCE, callbackAnimationWrapper, &ts, true);
 Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
+#ifdef USE_SERIAL
 Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
+#endif
 Task notNamingThis(8000, TASK_FOREVER, testAnimator, &ts, true);
 Animator animator(animTask, soundTask, display, SPEAKER_PIN);
 

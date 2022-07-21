@@ -20,5 +20,5 @@
 #define DEBOUNCE_TIME 150
 
 // Settings (comment out as needed)
-#define USE_SERIAL
+//#define USE_SERIAL
 #define USE_SOUND
