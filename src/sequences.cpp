@@ -8,7 +8,7 @@
 #include "globals.h"  // Face size declarations
 
 #pragma region eatAnimation
-static const PROGMEM AnimationElement _eatAnimation_frame_5_id2677902628560 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_5_id1470689662672 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -20,7 +20,7 @@ static const PROGMEM AnimationElement _eatAnimation_frame_5_id2677902628560 =
  .next = nullptr
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902629376 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_4_id1470689663488 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -29,10 +29,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902629376 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_4,
- .next = &_eatAnimation_frame_5_id2677902628560
+ .next = &_eatAnimation_frame_5_id1470689662672
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902628896 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_3_id1470689663008 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -41,10 +41,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902628896 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_3,
- .next = &_eatAnimation_frame_4_id2677902629376
+ .next = &_eatAnimation_frame_4_id1470689663488
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902629184 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_4_id1470689663296 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -53,10 +53,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902629184 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_4,
- .next = &_eatAnimation_frame_3_id2677902628896
+ .next = &_eatAnimation_frame_3_id1470689663008
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902627456 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_3_id1470689661568 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -65,10 +65,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902627456 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_3,
- .next = &_eatAnimation_frame_4_id2677902629184
+ .next = &_eatAnimation_frame_4_id1470689663296
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902628992 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_4_id1470689663104 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -77,10 +77,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902628992 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_4,
- .next = &_eatAnimation_frame_3_id2677902627456
+ .next = &_eatAnimation_frame_3_id1470689661568
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902628512 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_3_id1470689662624 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -89,10 +89,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902628512 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_3,
- .next = &_eatAnimation_frame_4_id2677902628992
+ .next = &_eatAnimation_frame_4_id1470689663104
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902628800 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_4_id1470689662912 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -101,10 +101,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_4_id2677902628800 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_4,
- .next = &_eatAnimation_frame_3_id2677902628512
+ .next = &_eatAnimation_frame_3_id1470689662624
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902627312 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_3_id1470689661424 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -113,10 +113,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_3_id2677902627312 =
  .meta = IMAGE_DEFAULT,
  .delay = 350,
  .image = eat_3,
- .next = &_eatAnimation_frame_4_id2677902628800
+ .next = &_eatAnimation_frame_4_id1470689662912
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_2_id2677902628608 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_2_id1470689662720 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -125,10 +125,10 @@ static const PROGMEM AnimationElement _eatAnimation_frame_2_id2677902628608 =
  .meta = IMAGE_DEFAULT,
  .delay = 400,
  .image = eat_2,
- .next = &_eatAnimation_frame_3_id2677902627312
+ .next = &_eatAnimation_frame_3_id1470689661424
 };
 
-static const PROGMEM AnimationElement _eatAnimation_frame_1_id2677902627120 = 
+static const PROGMEM AnimationElement _eatAnimation_frame_1_id1470689661232 = 
 {
  .x = FACE_LEFT,
  .y = FACE_TOP,
@@ -137,18 +137,18 @@ static const PROGMEM AnimationElement _eatAnimation_frame_1_id2677902627120 =
  .meta = IMAGE_DEFAULT,
  .delay = 800,
  .image = eat_1,
- .next = &_eatAnimation_frame_2_id2677902628608
+ .next = &_eatAnimation_frame_2_id1470689662720
 };
 
 const PROGMEM AnimationSequence eatAnimation = 
 {
  .id = 0,
- .head = &_eatAnimation_frame_1_id2677902627120
+ .head = &_eatAnimation_frame_1_id1470689661232
 };
 #pragma endregion eatAnimation
 
 #pragma region testAnimation
-static const PROGMEM AnimationElement _testAnimation_frame_13_id2677902630768 = 
+static const PROGMEM AnimationElement _testAnimation_frame_13_id1470689664880 = 
 {
  .x = 96,
  .y = 0,
@@ -160,7 +160,7 @@ static const PROGMEM AnimationElement _testAnimation_frame_13_id2677902630768 =
  .next = nullptr
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_12_id2677902630432 = 
+static const PROGMEM AnimationElement _testAnimation_frame_12_id1470689664544 = 
 {
  .x = 88,
  .y = 8,
@@ -169,10 +169,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_12_id2677902630432 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_13_id2677902630768
+ .next = &_testAnimation_frame_13_id1470689664880
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_11_id2677902630240 = 
+static const PROGMEM AnimationElement _testAnimation_frame_11_id1470689664352 = 
 {
  .x = 80,
  .y = 16,
@@ -181,10 +181,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_11_id2677902630240 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_12_id2677902630432
+ .next = &_testAnimation_frame_12_id1470689664544
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_10_id2677902630576 = 
+static const PROGMEM AnimationElement _testAnimation_frame_10_id1470689664688 = 
 {
  .x = 72,
  .y = 24,
@@ -193,10 +193,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_10_id2677902630576 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_11_id2677902630240
+ .next = &_testAnimation_frame_11_id1470689664352
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_9_id2677902627360 = 
+static const PROGMEM AnimationElement _testAnimation_frame_9_id1470689661472 = 
 {
  .x = 64,
  .y = 32,
@@ -205,10 +205,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_9_id2677902627360 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_10_id2677902630576
+ .next = &_testAnimation_frame_10_id1470689664688
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_8_id2677902629712 = 
+static const PROGMEM AnimationElement _testAnimation_frame_8_id1470689663824 = 
 {
  .x = 56,
  .y = 40,
@@ -217,10 +217,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_8_id2677902629712 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_9_id2677902627360
+ .next = &_testAnimation_frame_9_id1470689661472
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_7_id2677902630336 = 
+static const PROGMEM AnimationElement _testAnimation_frame_7_id1470689664448 = 
 {
  .x = 48,
  .y = 48,
@@ -229,10 +229,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_7_id2677902630336 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_8_id2677902629712
+ .next = &_testAnimation_frame_8_id1470689663824
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_6_id2677902629328 = 
+static const PROGMEM AnimationElement _testAnimation_frame_6_id1470689663440 = 
 {
  .x = 40,
  .y = 40,
@@ -241,10 +241,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_6_id2677902629328 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_7_id2677902630336
+ .next = &_testAnimation_frame_7_id1470689664448
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_5_id2677902630144 = 
+static const PROGMEM AnimationElement _testAnimation_frame_5_id1470689664256 = 
 {
  .x = 32,
  .y = 32,
@@ -253,10 +253,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_5_id2677902630144 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_6_id2677902629328
+ .next = &_testAnimation_frame_6_id1470689663440
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_4_id2677902629664 = 
+static const PROGMEM AnimationElement _testAnimation_frame_4_id1470689663776 = 
 {
  .x = 24,
  .y = 24,
@@ -265,10 +265,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_4_id2677902629664 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_5_id2677902630144
+ .next = &_testAnimation_frame_5_id1470689664256
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_3_id2677902629952 = 
+static const PROGMEM AnimationElement _testAnimation_frame_3_id1470689664064 = 
 {
  .x = 16,
  .y = 16,
@@ -277,10 +277,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_3_id2677902629952 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_4_id2677902629664
+ .next = &_testAnimation_frame_4_id1470689663776
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_2_id2677902628944 = 
+static const PROGMEM AnimationElement _testAnimation_frame_2_id1470689663056 = 
 {
  .x = 8,
  .y = 8,
@@ -289,10 +289,10 @@ static const PROGMEM AnimationElement _testAnimation_frame_2_id2677902628944 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_3_id2677902629952
+ .next = &_testAnimation_frame_3_id1470689664064
 };
 
-static const PROGMEM AnimationElement _testAnimation_frame_1_id2677902629760 = 
+static const PROGMEM AnimationElement _testAnimation_frame_1_id1470689663872 = 
 {
  .x = 0,
  .y = 0,
@@ -301,13 +301,13 @@ static const PROGMEM AnimationElement _testAnimation_frame_1_id2677902629760 =
  .meta = IMAGE_CLEARDISPLAY,
  .delay = 200,
  .image = attention,
- .next = &_testAnimation_frame_2_id2677902628944
+ .next = &_testAnimation_frame_2_id1470689663056
 };
 
 const PROGMEM AnimationSequence testAnimation = 
 {
  .id = 1,
- .head = &_testAnimation_frame_1_id2677902629760
+ .head = &_testAnimation_frame_1_id1470689663872
 };
 #pragma endregion testAnimation
 

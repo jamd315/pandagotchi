@@ -10,6 +10,7 @@ Animator::Animator(Task &animTask, Task &soundTask, Adafruit_SSD1306 &display, u
 
 void Animator::callbackAnimation()
 {
+  uint32_t startTime = millis();
   #ifdef USE_SERIAL
   Serial.println(F("Animation callback triggered"));
   #endif
@@ -21,7 +22,17 @@ void Animator::callbackAnimation()
     return;
   }
   drawActiveAnimationElement();
-  _animTask.restartDelayed(getAnimDelay());
+  uint32_t endTime = millis();
+  uint16_t drawTime = endTime - startTime;
+  #ifdef USE_SERIAL
+  Serial.print(F("Completed draw in "));
+  Serial.print(drawTime);
+  Serial.println(F("ms"));
+  #endif
+  int32_t delay = getAnimDelay() - drawTime;
+  if (delay < 0)
+    delay = 0;
+  _animTask.restartDelayed(delay);
   activeAnimationElement = getAnimNext();
 }
 

@@ -1,9 +1,8 @@
 # Next sound will play after duration + delay, so for back-to-backsounds, set delay to 0ms
-# Except 5-10ms is recommended when syncing with animations to account for draw overhead
 ---
   testSound:
     defaults:
-      delay: 10
+      delay: 0
       duration: 200
     note_1:
       frequency: NOTE_C3
