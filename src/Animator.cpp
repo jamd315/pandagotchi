@@ -1,5 +1,5 @@
 #include <avr/pgmspace.h>
-#include "AnimationManager.h"
+#include "Animator.h"
 #include "globals.h"
 
 

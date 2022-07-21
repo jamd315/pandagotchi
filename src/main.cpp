@@ -6,7 +6,7 @@
 #include <TaskScheduler.h>
 #include "main.h"
 #include "globals.h"
-#include "AnimationManager.h"
+#include "Animator.h"
 #include "images.h"
 #include "sequences.h"
 #include "notes.h"

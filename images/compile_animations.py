@@ -146,7 +146,7 @@ def main():
         f.write("\n")
         f.write('#include <avr/pgmspace.h>\n')
         f.write('#include "sequences.h"\n')
-        f.write('#include "AnimationManager.h"\n')
+        f.write('#include "Animator.h"\n')
         f.write('#include "images.h"\n')
         f.write('#include "globals.h"  // Face size declarations\n')
         f.write("\n")
@@ -160,7 +160,7 @@ def main():
         f.write("#ifndef _SEQUENCES_H\n")
         f.write("#define _SEQUENCES_H\n")
         f.write("\n")
-        f.write('#include "AnimationManager.h"\n')
+        f.write('#include "Animator.h"\n')
         f.write("\n")
         for sequence in sequences:
             print(f"Defined sequence {sequence.name}")
