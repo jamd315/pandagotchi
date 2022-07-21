@@ -48,7 +48,9 @@ void Animator::callbackSound()
     #endif
     return;
   }
+  #ifdef USE_SOUND
   tone(_speakerPin, getSoundFrequency(), getSoundDuration());
+  #endif
   _soundTask.restartDelayed(getSoundDuration() + getSoundDelay());
   activeSoundElement = getSoundNext();
 }
