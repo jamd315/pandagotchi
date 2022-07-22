@@ -5,14 +5,11 @@
 
 // Function primitives
 void error();
-void drawMenu();
-uint8_t getMenuX(uint8_t index);
-uint8_t getMenuY(uint8_t index);
 void btnCheck();
 void test();
 void callbackAnimationWrapper();
 void callbackSoundWrapper();
-void testAnimator();
+void callbackPandaWrapper();
 #ifdef USE_SERIAL
 void showStatus();
 #endif

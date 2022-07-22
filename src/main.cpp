@@ -12,6 +12,7 @@
 #include "sounds.h"
 #include "notes.h"
 #include "freemem.h"
+#include "panda.h"
 
 // Globals (TODO localize the scope of these)
 uint8_t btn_A_state = HIGH;
@@ -24,9 +25,6 @@ bool btn_A_flag = false;
 bool btn_B_flag = false;
 bool btn_C_flag = false;
 
-const uint8_t *menuBitmaps[] = {food, light, play, doctor, toilet, info, discipline, attention};
-uint8_t menuIndex = 0;
-
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Scheduler ts;
 // These 2 get consumed by Animator to trigger animation and sound.
@@ -35,8 +33,9 @@ Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
 #ifdef USE_SERIAL
 Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
 #endif
-Task notNamingThis(8000, TASK_FOREVER, testAnimator, &ts, true);
 Animator animator(animTask, soundTask, display, SPEAKER_PIN);
+Task pandaTask(TASK_IMMEDIATE, 0, [](){Serial.println("Caught pandaTask");}, &ts, true);
+Panda panda(pandaTask, display, animator);
 
 
 void setup() {
@@ -47,6 +46,9 @@ void setup() {
   pinMode(ERROR_LED_PIN, OUTPUT);
   digitalWrite(ERROR_LED_PIN, LOW); 
   
+  // Seed the PRNG
+  randomSeed(analogRead(0) * millis());
+
   // Start the SSD 1306 display
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
   {
@@ -66,41 +68,46 @@ void setup() {
   while(!Serial);  // While necessary-ish for Serial, this gets in the way of the task scheduler.
   Serial.println(F("Serial enabled"));
   #endif
-  testAnimator();
 }
 
 void loop() {
-  ts.execute();
+  //ts.execute();
+  panda.displayNeutralState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displaySatisfiedState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displayHappyState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displaySickState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displayWasteState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displayHungryState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displayTiredState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displayAsleepState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displayBoredState();
+  delay(1000);
+  Serial.println(freeMemory());
+  panda.displayFakeNeedsAttentionState();
+  delay(1000);
+  Serial.println(freeMemory());
 }
 
 void error()
 {
   digitalWrite(ERROR_LED_PIN, HIGH);
   while(true) {};
-}
-
-void drawMenu()
-{
-  // Draws the menu but does NOT display it
-  for (size_t i = 0; i < sizeof menuBitmaps / sizeof menuBitmaps[0]; i++)
-  {
-    display.drawBitmap(getMenuX(i), getMenuY(i), menuBitmaps[i], ICON_WIDTH, ICON_HEIGHT, 1, 0);
-  }
-  // Draw selection with inverted colors
-  display.drawBitmap(getMenuX(menuIndex), getMenuY(menuIndex), menuBitmaps[menuIndex], ICON_WIDTH, ICON_HEIGHT, 0, 1);
-}
-
-uint8_t getMenuX(uint8_t index)
-{
-  if (index < 4)
-    return 0;
-  else
-    return display.width() - ICON_WIDTH;
-}
-
-uint8_t getMenuY(uint8_t index)
-{
-  return ICON_HEIGHT * (index % 4);
 }
 
 void btnCheck()
@@ -165,10 +172,9 @@ void callbackSoundWrapper()
   animator.callbackSound();
 }
 
-void testAnimator()
+void callbackPandaWrapper()
 {
-  animator.startAnimationSequence(testAnimation);
-  animator.startSoundSequence(testSound);
+  panda.callback();
 }
 
 #ifdef USE_SERIAL
