@@ -56,7 +56,7 @@ void Animator::callbackSound()
 }
 
 // Starts displaying the given Animation
-void Animator::startAnimationSequence(const AnimationSequence &sequence, bool invert=false)
+void Animator::startAnimationSequence(const AnimationSequence &sequence, bool invert)
 {
   _sequenceInvert = invert;
   #ifdef USE_SERIAL

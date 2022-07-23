@@ -31,12 +31,12 @@ Scheduler ts;
 Task animTask(TASK_IMMEDIATE, TASK_ONCE, callbackAnimationWrapper, &ts, true);
 Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
 #ifdef USE_SERIAL
-//Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
+Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
 #endif
 Animator animator(animTask, soundTask, display, SPEAKER_PIN);
-Task pandaTask(TASK_IMMEDIATE, 0, [](){Serial.println("Caught pandaTask");}, &ts, true);
+Task pandaTask(TASK_IMMEDIATE, 0, callbackPandaWrapper, &ts, true);
 Panda panda(pandaTask, display, animator);
-Task testTask(4000, TASK_FOREVER, test, &ts, true);
+//Task testTask(4000, TASK_FOREVER, test, &ts, true);
 
 
 void setup() {
@@ -69,6 +69,8 @@ void setup() {
   while(!Serial);  // While necessary-ish for Serial, this gets in the way of the task scheduler.
   Serial.println(F("Serial enabled"));
   #endif
+
+  panda.start();
 }
 
 void loop() {
@@ -77,6 +79,7 @@ void loop() {
 
 void error()
 {
+  tone(SPEAKER_PIN, 1000);
   digitalWrite(ERROR_LED_PIN, HIGH);
   while(true) {};
 }

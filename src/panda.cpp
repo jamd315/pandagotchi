@@ -17,8 +17,14 @@ Panda::Panda(Task &pandaStateTask, Adafruit_SSD1306 &display, Animator &animator
         .Tired = 32,
         .Bored = 64 
     };
-    //transitionNeutralState();
 };
+
+void Panda::start()
+{
+    _pandaStateTask.setIterations(1);
+    _pandaStateTask.setInterval(UINT32_MAX);  // Callback intervals will be set by program as needed.  For now do nothing (for a long time)
+    transitionNeutralState();
+}
 
 PandaState Panda::getNewRandomState()
 {

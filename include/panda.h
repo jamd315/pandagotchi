@@ -42,7 +42,8 @@ typedef enum PandaState
     BORED,
     HAPPY,
     SATISFIED,
-    NEUTRAL
+    NEUTRAL,
+    NO_STATE = 255
 } PandaState;
 
 typedef struct StateWeights
@@ -60,6 +61,7 @@ class Panda
 {
 public:
     Panda(Task &pandaStateTask, Adafruit_SSD1306 &display, Animator &animator);
+    void start();
     
     PandaState getNewRandomState();
     void transitionNewRandomState();
@@ -108,7 +110,7 @@ public:
     inline void lightsOff();
 
 protected:
-    PandaState _state;
+    PandaState _state = NO_STATE;
     StateWeights _weights;
     Task &_pandaStateTask;
     Adafruit_SSD1306 &_display;
