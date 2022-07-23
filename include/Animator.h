@@ -52,7 +52,7 @@ public:
     Animator(Task &animTask, Task &soundTask, Adafruit_SSD1306 &display, uint8_t speakerPin);
     void callbackAnimation();
     void callbackSound();
-    void startAnimationSequence(const AnimationSequence &sequence);
+    void startAnimationSequence(const AnimationSequence &sequence, bool invert=false);
     void startSoundSequence(const SoundSequence &sequence);
     void drawActiveAnimationElement();
 
@@ -63,6 +63,7 @@ protected:
     const SoundElement *activeSoundElement;
     Adafruit_SSD1306 &_display;
     uint8_t _speakerPin;
+    bool _sequenceInvert = false;
     inline uint8_t getAnimX();
     inline uint8_t getAnimY();
     inline uint8_t getAnimW();

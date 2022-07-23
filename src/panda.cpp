@@ -25,7 +25,8 @@ PandaState Panda::getNewRandomState()
     uint16_t sumOfWeights = _weights.FakeNeedAttention + _weights.Sick + _weights.Waste + _weights.Hungry + _weights.Tired + _weights.Bored;
     
     // Sort of a non-loop or unrolled loop version of a weighted random algorithm
-    uint16_t choice = sumOfWeights * rand() / RAND_MAX;
+    uint16_t choice = sumOfWeights * (1.0 * rand() / RAND_MAX);
+    Serial.println(choice);
 
     if (choice < _weights.FakeNeedAttention)
         return FAKE_NEED_ATTENTION;
@@ -97,7 +98,15 @@ void Panda::transitionNewRandomState()
 
 void Panda::transitionNeutralState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to NEUTRAL "));
+    #endif
     _state = NEUTRAL;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = false;
     displayNeutralState();
     _pandaStateTask.restartDelayed(getDelayLong());
@@ -105,7 +114,15 @@ void Panda::transitionNeutralState()
 
 void Panda::transitionSatisfiedState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to SATISFIED "));
+    #endif
     _state = SATISFIED;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = false;
     displaySatisfiedState();
     _pandaStateTask.restartDelayed(getDelayMedium());
@@ -113,7 +130,15 @@ void Panda::transitionSatisfiedState()
 
 void Panda::transitionHappyState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to HAPPY "));
+    #endif
     _state = HAPPY;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = false;
     displayHappyState();
     _pandaStateTask.restartDelayed(getDelayMedium());
@@ -121,7 +146,15 @@ void Panda::transitionHappyState()
 
 void Panda::transitionSickState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to SICK "));
+    #endif
     _state = SICK;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = true;
     displaySickState();
     _pandaStateTask.restartDelayed(getDelayMedium());
@@ -129,7 +162,15 @@ void Panda::transitionSickState()
 
 void Panda::transitionWasteState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to WASTE "));
+    #endif
     _state = WASTE;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = true;
     displayWasteState();
     _pandaStateTask.restartDelayed(getDelayShort());
@@ -137,7 +178,15 @@ void Panda::transitionWasteState()
 
 void Panda::transitionHungryState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to HUNGRY "));
+    #endif
     _state = HUNGRY;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = true;
     displayHungryState();
     _pandaStateTask.restartDelayed(getDelayMedium());
@@ -145,7 +194,15 @@ void Panda::transitionHungryState()
 
 void Panda::transitionTiredState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to TIRED "));
+    #endif
     _state = TIRED;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = true;
     displayTiredState();
     _pandaStateTask.restartDelayed(getDelayShort());
@@ -153,16 +210,32 @@ void Panda::transitionTiredState()
 
 void Panda::transitionAsleepState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to ASLEEP "));
+    #endif
     _state = ASLEEP;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = false;
-    displayHappyState();
+    displayAsleepState();
     _sleepStartTime = millis();
     _pandaStateTask.restartDelayed(getDelayLong());
 }
 
 void Panda::transitionBoredState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to BORED "));
+    #endif
     _state = BORED;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = true;
     displayBoredState();
     _pandaStateTask.restartDelayed(getDelayMedium());
@@ -170,7 +243,15 @@ void Panda::transitionBoredState()
 
 void Panda::transitionFakeNeedsAttentionState()
 {
+    #ifdef USE_SERIAL
+    Serial.print(F("State transition from "));
+    Serial.print(_state);
+    Serial.print(F(" to FNA "));
+    #endif
     _state = FAKE_NEED_ATTENTION;
+    #ifdef USE_SERIAL
+    Serial.println(_state);
+    #endif
     _attentionFlag = true;
     displayFakeNeedsAttentionState();
     _pandaStateTask.restartDelayed(getDelayMedium());
@@ -356,10 +437,9 @@ void Panda::displayNeutralState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, neutral, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Neutral"));
-    _display.setCursor(20, 28);
     _display.display();
 }
 
@@ -367,8 +447,8 @@ void Panda::displaySatisfiedState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, satisfied, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, satisfied, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Satisfied"));
     _display.display();
 }
@@ -377,8 +457,8 @@ void Panda::displayHappyState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, happy, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, happy, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Happy"));
     _display.display();
 }
@@ -387,8 +467,8 @@ void Panda::displaySickState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, sick, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Sick"));
     _display.display();
 }
@@ -397,8 +477,9 @@ void Panda::displayWasteState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, bored, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.drawBitmap(WASTE_LEFT, WASTE_TOP, waste, ICON_WIDTH, ICON_HEIGHT, _fgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Waste"));
     _display.display();
 }
@@ -407,8 +488,8 @@ void Panda::displayHungryState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, hungry, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Hungry"));
     _display.display();
 }
@@ -417,8 +498,8 @@ void Panda::displayTiredState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, tired, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Tired"));
     _display.display();
 }
@@ -427,10 +508,9 @@ void Panda::displayAsleepState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, asleep, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Asleep"));
-    _display.setCursor(20, 28);
     _display.display();
 }
 
@@ -438,8 +518,8 @@ void Panda::displayBoredState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, bored, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("Bored"));
     _display.display();
 }
@@ -448,8 +528,9 @@ void Panda::displayFakeNeedsAttentionState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, placeholder, FACE_WIDTH, FACE_HEIGHT, 1, 0);
-    _display.setCursor(20, 56);
+    // TODO randomly pick a fake attention image
+    _display.drawBitmap(FACE_LEFT, FACE_TOP, hungry, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _display.setCursor(32, 56);
     _display.println(F("FNA"));
     _display.display();
 }
@@ -459,14 +540,23 @@ void Panda::drawMenu()
   // Draws the menu but does NOT display it
   for (size_t i = 0; i < sizeof _menuBitmaps / sizeof _menuBitmaps[0]; i++)
   {
-    _display.drawBitmap(getMenuX(i), getMenuY(i), _menuBitmaps[i], ICON_WIDTH, ICON_HEIGHT, 1, 0);
+    _display.drawBitmap(getMenuX(i), getMenuY(i), _menuBitmaps[i], ICON_WIDTH, ICON_HEIGHT, _fgColor, _bgColor);
   }
   // Draw selection with inverted colors
-  _display.drawBitmap(getMenuX(_menuIndex), getMenuY(_menuIndex), _menuBitmaps[_menuIndex], ICON_WIDTH, ICON_HEIGHT, 0, 1);
+  if (_menuIndex != NO_MENU_INDEX)
+  {
+    _display.drawBitmap(getMenuX(_menuIndex), getMenuY(_menuIndex), _menuBitmaps[_menuIndex], ICON_WIDTH, ICON_HEIGHT, _bgColor, _fgColor);
+  }
+  // TODO temp debugging
+  _menuIndex++;
+  _menuIndex %= 7;
+  // Show needs attention if _attentionFlag
   if (_attentionFlag)
   {
-    _display.drawBitmap(getMenuX(7), getMenuY(7), attention, ICON_WIDTH, ICON_HEIGHT, 0, 1);
+    _display.drawBitmap(getMenuX(7), getMenuY(7), attention, ICON_WIDTH, ICON_HEIGHT, _bgColor, _fgColor);
   }
+  _display.fillRect(16, 0, 16, 64, _bgColor);
+  _display.fillRect(96, 0, 16, 64, _bgColor);
 }
 
 uint8_t Panda::getMenuX(uint8_t index)
@@ -512,6 +602,22 @@ uint32_t Panda::getDelayShort()
     Serial.println(delay);
     #endif
     return delay;
+}
+
+inline void Panda::lightsOn()
+{
+    // Black on white, looks bright
+    _fgColor = SSD1306_BLACK;
+    _bgColor = SSD1306_WHITE;
+    _lightsOn = true;
+}
+
+inline void Panda::lightsOff()
+{
+    // White lights on black, looks dark
+    _fgColor = SSD1306_WHITE;
+    _bgColor = SSD1306_BLACK;
+    _lightsOn = false;
 }
 
 inline uint8_t Panda::clampedModify(uint8_t weight, int16_t difference)

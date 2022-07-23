@@ -31,11 +31,12 @@ Scheduler ts;
 Task animTask(TASK_IMMEDIATE, TASK_ONCE, callbackAnimationWrapper, &ts, true);
 Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
 #ifdef USE_SERIAL
-Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
+//Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
 #endif
 Animator animator(animTask, soundTask, display, SPEAKER_PIN);
 Task pandaTask(TASK_IMMEDIATE, 0, [](){Serial.println("Caught pandaTask");}, &ts, true);
 Panda panda(pandaTask, display, animator);
+Task testTask(4000, TASK_FOREVER, test, &ts, true);
 
 
 void setup() {
@@ -56,7 +57,7 @@ void setup() {
   }
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.setTextColor(SSD1306_WHITE);
+  display.setTextColor(SSD1306_WHITE, SSD1306_BLACK);  // Erase background when rendering text
   display.setTextSize(1);
   display.cp437(true);
   display.println("Display started");
@@ -71,37 +72,7 @@ void setup() {
 }
 
 void loop() {
-  //ts.execute();
-  panda.displayNeutralState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displaySatisfiedState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displayHappyState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displaySickState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displayWasteState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displayHungryState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displayTiredState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displayAsleepState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displayBoredState();
-  delay(1000);
-  Serial.println(freeMemory());
-  panda.displayFakeNeedsAttentionState();
-  delay(1000);
-  Serial.println(freeMemory());
+  ts.execute();
 }
 
 void error()
@@ -177,6 +148,13 @@ void callbackPandaWrapper()
   panda.callback();
 }
 
+void test()
+{
+  panda.transitionNewRandomState();
+  showStatus();
+  animator.startAnimationSequence(cleanAnimation, true);
+}
+
 #ifdef USE_SERIAL
 void showStatus()
 {
@@ -184,5 +162,8 @@ void showStatus()
   Serial.print("ms ");
   Serial.print(freeMemory());
   Serial.println(" bytes free");
+  display.setCursor(20, 0);
+  display.println(millis());
+  display.display();
 }
 #endif

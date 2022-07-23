@@ -7,6 +7,8 @@
 #include <Adafruit_SSD1306.h>
 #include "Animator.h"
 
+#define NO_MENU_INDEX UINT8_MAX
+
 // Long time, e.g. time spent on neutral state or between asleep checks
 #define DELAY_LONG_LOW 10000
 #define DELAY_LONG_HIGH 20000
@@ -58,9 +60,8 @@ class Panda
 {
 public:
     Panda(Task &pandaStateTask, Adafruit_SSD1306 &display, Animator &animator);
+    
     PandaState getNewRandomState();
-    void callback();
-
     void transitionNewRandomState();
     void transitionNeutralState();
     void transitionSatisfiedState();
@@ -73,6 +74,7 @@ public:
     void transitionBoredState();
     void transitionFakeNeedsAttentionState();
 
+    void callback();
     void callbackNeutralState();
     void callbackSatisfiedState();
     void callbackHappyState();
@@ -102,6 +104,8 @@ public:
     uint32_t getDelayMedium(); // Standard wait time before consequences, most actions
     uint32_t getDelayShort(); // Actions that need to be remedied quickly
     inline uint8_t clampedModify(uint8_t weight, int16_t difference);
+    inline void lightsOn();
+    inline void lightsOff();
 
 protected:
     PandaState _state;
@@ -114,6 +118,8 @@ protected:
     uint8_t _health = 10;
     bool _lightsOn = true;
     uint8_t _menuIndex = 0;
+    uint8_t _fgColor = 0;
+    uint8_t _bgColor = 1;
     // These can be modified with traits, all are percents
     uint8_t _attentionFrequency = 100;
     uint8_t _undecayChance = 100;

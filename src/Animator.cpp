@@ -56,8 +56,9 @@ void Animator::callbackSound()
 }
 
 // Starts displaying the given Animation
-void Animator::startAnimationSequence(const AnimationSequence &sequence)
+void Animator::startAnimationSequence(const AnimationSequence &sequence, bool invert=false)
 {
+  _sequenceInvert = invert;
   #ifdef USE_SERIAL
   Serial.print(F("Starting animation sequence "));
   Serial.println(sequence.id);
@@ -100,7 +101,7 @@ void Animator::drawActiveAnimationElement()
   const uint8_t *image = getActiveImage();
   bool clearDisplay = getAnimMeta() & IMAGE_CLEARDISPLAY;
   bool transparent = getAnimMeta() & IMAGE_TRANSPARENT;
-  bool invert = getAnimMeta() & IMAGE_INVERT;
+  bool elementInvert = getAnimMeta() & IMAGE_INVERT;
 
   // Clear if needed
   if (clearDisplay)
@@ -109,7 +110,7 @@ void Animator::drawActiveAnimationElement()
   // Handle colors
   uint8_t fgColor = 1;
   uint8_t bgColor = 0;
-  if (invert)
+  if (elementInvert != _sequenceInvert)  // XOR basically
   {
     fgColor = 0;
     bgColor = 1;
