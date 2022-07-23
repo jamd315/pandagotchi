@@ -10,6 +10,8 @@
 #define FACE_TOP (SCREEN_HEIGHT - FACE_HEIGHT) / 2
 #define ICON_HEIGHT 16
 #define ICON_WIDTH 16
+#define WASTE_LEFT 80
+#define WASTE_TOP 48
 
 // Pins
 #define OLED_RESET 4  // Not really sure if this is needed

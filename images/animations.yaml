@@ -15,6 +15,7 @@
 
 # All top level objects are animations (lists of elements)
 # Strings can be passed to numerical parameters, it's assumed these will be #defined
+# Frame MUST have 'image' attribute, loops MUST have 'loop' attribute
 ---
   eatAnimation:
     defaults:
@@ -50,7 +51,6 @@
       transparent: false
       cleardisplay: true
       delay: 200
-      image: attention
     frame_1:
       x: 0
       y: 0
@@ -103,4 +103,147 @@
       x: 96
       y: 0
       image: attention
-    
+  cleanAnimation:
+    defaults:
+      y: 0
+      w: 8
+      h: 64
+      invert: false
+      transparent: false
+      cleardisplay: false
+      delay: 50
+    f9:
+      x: 104
+      image: wave
+    f10:
+      x: 102
+      image: wave
+    f11:
+      x: 100
+      image: wave
+    f12:
+      x: 98
+      image: wave
+    f13:
+      x: 96
+      image: wave
+    f14:
+      x: 94
+      image: wave
+    f15:
+      x: 92
+      image: wave
+    f16:
+      x: 90
+      image: wave
+    f17:
+      x: 88
+      image: wave
+    f18:
+      x: 86
+      image: wave
+    f19:
+      x: 84
+      image: wave
+    f20:
+      x: 82
+      image: wave
+    f21:
+      x: 80
+      image: wave
+    f22:
+      x: 78
+      image: wave
+    f23:
+      x: 76
+      image: wave
+    f24:
+      x: 74
+      image: wave
+    f25:
+      x: 72
+      image: wave
+    f26:
+      x: 70
+      image: wave
+    f27:
+      x: 68
+      image: wave
+    f28:
+      x: 66
+      image: wave
+    f29:
+      x: 64
+      image: wave
+    f30:
+      x: 62
+      image: wave
+    f31:
+      x: 60
+      image: wave
+    f32:
+      x: 58
+      image: wave
+    f33:
+      x: 56
+      image: wave
+    f34:
+      x: 54
+      image: wave
+    f35:
+      x: 52
+      image: wave
+    f36:
+      x: 50
+      image: wave
+    f37:
+      x: 48
+      image: wave
+    f38:
+      x: 46
+      image: wave
+    f39:
+      x: 44
+      image: wave
+    f40:
+      x: 42
+      image: wave
+    f41:
+      x: 40
+      image: wave
+    f42:
+      x: 38
+      image: wave
+    f43:
+      x: 36
+      image: wave
+    f44:
+      x: 34
+      image: wave
+    f45:
+      x: 32
+      image: wave
+    f46:
+      x: 30
+      image: wave
+    f47:
+      x: 28
+      image: wave
+    f48:
+      x: 26
+      image: wave
+    f49:
+      x: 24
+      image: wave
+    f50:
+      x: 22
+      image: wave
+    f51:
+      x: 20
+      image: wave
+    f52:
+      x: 18
+      image: wave
+    f53:
+      x: 16
+      image: wave
