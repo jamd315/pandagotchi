@@ -126,7 +126,7 @@ class AnimationSequence:
 
 
 def main():
-    with open("./images/animations.yaml") as f:
+    with open("./yaml/animations.yaml") as f:
         yaml_data: dict = yaml.load(f, Loader=yaml.Loader)
 
     sequences = []

@@ -1,0 +1,35 @@
+---
+  eat_1:
+    left_eye: eat_left
+    right_eye: eat_right
+    mouth: wide_open
+    additional:
+      - hand
+      - food_1
+  eat_2:
+    left_eye: eat_left
+    right_eye: eat_right
+    mouth: wide_open
+    additional:
+      - hand
+      - food_1
+  eat_3:
+    left_eye: eat_left
+    right_eye: eat_right
+    mouth: chewing_1
+  eat_4:
+    left_eye: eat_left
+    right_eye: eat_right
+    mouth: chewing_2
+  satisfied:
+    left_eye: satisfied_left
+    right_eye: satisfied_right
+    mouth: satisfied_mouth
+  happy:
+    left_eye: happy_left
+    right_eye: happy_right
+    mouth: happy_mouth
+  
+  
+  
+  

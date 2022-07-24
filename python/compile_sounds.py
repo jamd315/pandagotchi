@@ -103,7 +103,7 @@ class SoundSequence:
 
 
 def main():
-    with open("./sounds/sounds.yaml") as f:
+    with open("./yaml/sounds.yaml") as f:
         yaml_data = yaml.load(f, Loader=yaml.Loader)
     
     sequences = []
