@@ -142,6 +142,7 @@
     defaults:
       delay: 0
       transparent: true
+      drawonly: true
     base: 
       x: FACE_LEFT
       y: FACE_TOP
@@ -167,10 +168,12 @@
       w: MOUTH_WIDTH
       h: MOUTH_HEIGHT
       image: satisfied_mouth
+      drawonly: false
   happyFace:
     defaults:
       delay: 0
       transparent: true
+      drawonly: true
     base: 
       x: FACE_LEFT
       y: FACE_TOP
@@ -196,6 +199,7 @@
       w: MOUTH_WIDTH
       h: MOUTH_HEIGHT
       image: happy_mouth
+      drawonly: false  # Last one gets the draw
   
   
   

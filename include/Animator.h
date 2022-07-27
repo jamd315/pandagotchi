@@ -8,6 +8,7 @@
 #define IMAGE_INVERT 1 << 1
 #define IMAGE_TRANSPARENT 1 << 2
 #define IMAGE_CLEARDISPLAY 1 << 3
+#define IMAGE_DRAWONLY 1 << 4
 
 // Comment out to reduce log volume by omitting Animator logs
 //#define USE_SERIAL_ANIMATOR

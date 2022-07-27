@@ -71,12 +71,15 @@ void Animator::showFace(const AnimationSequence &face, bool invert)
 {
   _animTask.disable();
   const AnimationElement *oldElement = activeAnimationElement;
+  bool prevSequenceInvert = _sequenceInvert;
+  _sequenceInvert = invert;
   activeAnimationElement = (AnimationElement*) pgm_read_ptr(&face.head);
   while (activeAnimationElement != nullptr)
   {
     drawActiveAnimationElement();
     activeAnimationElement = getAnimNext();
   }
+  _sequenceInvert = prevSequenceInvert;
   activeAnimationElement = oldElement;
   _animTask.enable();
 }
@@ -113,9 +116,11 @@ void Animator::drawActiveAnimationElement()
   int16_t x = getAnimX();
   int16_t y = getAnimY();
   const uint8_t *image = getActiveImage();
-  bool clearDisplay = getAnimMeta() & IMAGE_CLEARDISPLAY;
-  bool transparent = getAnimMeta() & IMAGE_TRANSPARENT;
-  bool elementInvert = getAnimMeta() & IMAGE_INVERT;
+  uint8_t meta = getAnimMeta();
+  bool clearDisplay = meta & IMAGE_CLEARDISPLAY;
+  bool transparent = meta & IMAGE_TRANSPARENT;
+  bool elementInvert = meta & IMAGE_INVERT;
+  bool drawOnly = meta & IMAGE_DRAWONLY;
 
   // Clear if needed
   if (clearDisplay)
@@ -150,7 +155,10 @@ void Animator::drawActiveAnimationElement()
     }
   }
   _display.endWrite();
-  _display.display();  // TODO maybe add this to meta?
+  if (!drawOnly)
+  {
+    _display.display();
+  }
 }
 
 // Helper function to access x value of the activeAnimationElement in PROGMEM

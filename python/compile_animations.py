@@ -29,6 +29,7 @@ class AnimationElement:
         self.invert = data.get("invert", defaults.get("invert", False))
         self.transparent = data.get("transparent", defaults.get("transparent", False))
         self.cleardisplay = data.get("cleardisplay", defaults.get("cleardisplay", False))
+        self.drawonly = data.get("drawonly", defaults.get("drawonly", False))
         self.delay = data.get("delay", defaults.get("delay", 0))
         self.image = data.get("image", defaults.get("image", None))
         if self.image is None:
@@ -39,10 +40,10 @@ class AnimationElement:
         return f"_{self._sequence_name}_{self._element_name}_id{id(self)}"
 
     def __repr__(self):
-        return f"AnimationElement(id={id(self)}, name={self.name}, x={self.x}, y={self.y}, w={self.w}, h={self.h}, invert={self.invert}, transparent={self.transparent}, cleardisplay={self.cleardisplay}, delay={self.delay}, image={self.image}"
+        return f"AnimationElement(id={id(self)}, name={self.name}, x={self.x}, y={self.y}, w={self.w}, h={self.h}, invert={self.invert}, transparent={self.transparent}, cleardisplay={self.cleardisplay}, drawonly={self.drawonly}, delay={self.delay}, image={self.image}"
 
     def render_meta(self):
-        if not self.invert and not self.transparent and not self.cleardisplay:
+        if not self.invert and not self.transparent and not self.cleardisplay and not self.drawonly:
             return "IMAGE_DEFAULT"
         flags = []
         if self.invert:
@@ -51,6 +52,8 @@ class AnimationElement:
             flags.append("IMAGE_TRANSPARENT")
         if self.cleardisplay:
             flags.append("IMAGE_CLEARDISPLAY")
+        if self.drawonly:
+            flags.append("IMAGE_DRAWONLY")
         return " | ".join(flags)
 
     def get_cpp(self, next_name=None, tab_index=0):

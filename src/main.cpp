@@ -154,10 +154,10 @@ void callbackPandaWrapper()
 
 void test()
 {
-  animator.showFace(satisfiedFace);
+  animator.showFace(satisfiedFace, true);
   panda.drawMenu();
   showStatus();
-  animator.startAnimationSequence(cleanAnimation, true);
+  //animator.startAnimationSequence(cleanAnimation, true);
 }
 
 #ifdef USE_SERIAL
