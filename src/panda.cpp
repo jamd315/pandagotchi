@@ -3,6 +3,7 @@
 #include "panda.h"
 #include "Animator.h"
 #include "images.h"
+#include "faces.h"
 
 const uint8_t *_menuBitmaps[] = {food, light, play, doctor, toilet, info, discipline, attention};
 
@@ -453,7 +454,8 @@ void Panda::displaySatisfiedState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, satisfied, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    //_display.drawBitmap(FACE_LEFT, FACE_TOP, satisfied, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(satisfiedFace, !_lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Satisfied"));
     _display.display();
@@ -463,7 +465,8 @@ void Panda::displayHappyState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, happy, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    //_display.drawBitmap(FACE_LEFT, FACE_TOP, happy, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(happyFace, !_lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Happy"));
     _display.display();

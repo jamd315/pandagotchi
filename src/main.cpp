@@ -8,6 +8,7 @@
 #include "globals.h"
 #include "Animator.h"
 #include "images.h"
+#include "faces.h"
 #include "sequences.h"
 #include "sounds.h"
 #include "notes.h"
@@ -31,12 +32,12 @@ Scheduler ts;
 Task animTask(TASK_IMMEDIATE, TASK_ONCE, callbackAnimationWrapper, &ts, true);
 Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
 #ifdef USE_SERIAL
-Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
+//Task statusTask(TASK_SECOND, TASK_FOREVER, showStatus, &ts, true);
 #endif
 Animator animator(animTask, soundTask, display, SPEAKER_PIN);
 Task pandaTask(TASK_IMMEDIATE, 0, callbackPandaWrapper, &ts, true);
 Panda panda(pandaTask, display, animator);
-//Task testTask(4000, TASK_FOREVER, test, &ts, true);
+Task testTask(4000, TASK_FOREVER, test, &ts, true);
 
 
 void setup() {
@@ -70,7 +71,7 @@ void setup() {
   Serial.println(F("Serial enabled"));
   #endif
 
-  panda.start();
+  //panda.start();
 }
 
 void loop() {
@@ -148,12 +149,13 @@ void callbackSoundWrapper()
 
 void callbackPandaWrapper()
 {
-  panda.callback();
+  //panda.callback();
 }
 
 void test()
 {
-  panda.transitionNewRandomState();
+  animator.showFace(satisfiedFace);
+  panda.drawMenu();
   showStatus();
   animator.startAnimationSequence(cleanAnimation, true);
 }

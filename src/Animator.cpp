@@ -11,12 +11,12 @@ Animator::Animator(Task &animTask, Task &soundTask, Adafruit_SSD1306 &display, u
 void Animator::callbackAnimation()
 {
   uint32_t startTime = millis();
-  #ifdef USE_SERIAL
+  #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
   Serial.println(F("Animation callback triggered"));
   #endif
   if (activeAnimationElement == nullptr)
   {
-    #ifdef USE_SERIAL
+    #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
     Serial.println(F("End of animation sequence"));
     #endif
     return;
@@ -24,7 +24,7 @@ void Animator::callbackAnimation()
   drawActiveAnimationElement();
   uint32_t endTime = millis();
   uint16_t drawTime = endTime - startTime;
-  #ifdef USE_SERIAL
+  #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
   Serial.print(F("Completed draw in "));
   Serial.print(drawTime);
   Serial.println(F("ms"));
@@ -38,12 +38,12 @@ void Animator::callbackAnimation()
 
 void Animator::callbackSound()
 {
-  #ifdef USE_SERIAL
+  #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
   Serial.println(F("Sound callback triggered"));
   #endif
   if (activeSoundElement == nullptr)
   {
-    #ifdef USE_SERIAL
+    #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
     Serial.println(F("End of sound sequence"));
     #endif
     return;
@@ -59,7 +59,7 @@ void Animator::callbackSound()
 void Animator::startAnimationSequence(const AnimationSequence &sequence, bool invert)
 {
   _sequenceInvert = invert;
-  #ifdef USE_SERIAL
+  #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
   Serial.print(F("Starting animation sequence "));
   Serial.println(sequence.id);
   #endif
@@ -67,9 +67,23 @@ void Animator::startAnimationSequence(const AnimationSequence &sequence, bool in
   callbackAnimation();
 }
 
+void Animator::showFace(const AnimationSequence &face, bool invert)
+{
+  _animTask.disable();
+  const AnimationElement *oldElement = activeAnimationElement;
+  activeAnimationElement = (AnimationElement*) pgm_read_ptr(&face.head);
+  while (activeAnimationElement != nullptr)
+  {
+    drawActiveAnimationElement();
+    activeAnimationElement = getAnimNext();
+  }
+  activeAnimationElement = oldElement;
+  _animTask.enable();
+}
+
 void Animator::startSoundSequence(const SoundSequence &sequence)
 {
-  #ifdef USE_SERIAL
+  #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
   Serial.print(F("Starting sound sequence "));
   Serial.println(sequence.id);
   #endif
@@ -81,7 +95,7 @@ void Animator::startSoundSequence(const SoundSequence &sequence)
 // Around here https://github.com/adafruit/Adafruit-GFX-Library/blob/master/Adafruit_GFX.cpp#L751
 void Animator::drawActiveAnimationElement()
 {
-  #ifdef USE_SERIAL
+  #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
   Serial.println(F("Called drawActiveAnimationElement"));
   Serial.print(F("x="));
   Serial.print(getAnimX());

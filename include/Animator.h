@@ -9,6 +9,9 @@
 #define IMAGE_TRANSPARENT 1 << 2
 #define IMAGE_CLEARDISPLAY 1 << 3
 
+// Comment out to reduce log volume by omitting Animator logs
+//#define USE_SERIAL_ANIMATOR
+
 // This is in PROGMEM
 typedef struct AnimationElement
 {
@@ -53,6 +56,7 @@ public:
     void callbackAnimation();
     void callbackSound();
     void startAnimationSequence(const AnimationSequence &sequence, bool invert=false);
+    void showFace(const AnimationSequence &face, bool invert=false);
     void startSoundSequence(const SoundSequence &sequence);
     void drawActiveAnimationElement();
 

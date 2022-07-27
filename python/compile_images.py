@@ -21,7 +21,7 @@ except ImportError:
     from PIL import Image
 
 
-files = glob.glob("./images/*.png")
+files = glob.glob("./images/**/*.png", recursive=True)
 
 size = 0
 header_str = ""

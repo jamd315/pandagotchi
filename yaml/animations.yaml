@@ -15,7 +15,7 @@
 
 # All top level objects are animations (lists of elements)
 # Strings can be passed to numerical parameters, it's assumed these will be #defined
-# Frame MUST have 'image' attribute, loops MUST have 'loop' attribute
+# Frame MUST have 'image' or 'face' attribute, loops MUST have 'loop' attribute
 ---
   eatAnimation:
     defaults:
@@ -27,21 +27,21 @@
       transparent: false
       cleardisplay: false
     frame_1:
-      image: eat_1
+      face: eatFace_1
       delay: 800
     frame_2:
-      image: eat_2
+      face: eatFace_2
       delay: 400
     loop_1:
       loop: 4
       frame_3:
-        image: eat_3
+        face: eatFace_3
         delay: 350
       frame_4:
-        image: eat_4
+        face: eatFace_4
         delay: 350
     frame_5:
-      image: satisfied
+      face: satisfiedFace
       delay: 500
   testAnimation:
     defaults:
