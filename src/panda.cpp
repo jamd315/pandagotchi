@@ -96,7 +96,7 @@ void Panda::transitionNewRandomState()
 
         default:
             #ifdef USE_SERIAL
-            Serial.print(F("Got unexpected state "));
+            Serial.print("Got unexpected state ");
             Serial.println(newState);
             #endif
             transitionNeutralState();
@@ -107,9 +107,9 @@ void Panda::transitionNewRandomState()
 void Panda::transitionNeutralState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to NEUTRAL "));
+    Serial.print(" to NEUTRAL ");
     #endif
     _state = NEUTRAL;
     #ifdef USE_SERIAL
@@ -123,9 +123,9 @@ void Panda::transitionNeutralState()
 void Panda::transitionSatisfiedState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to SATISFIED "));
+    Serial.print(" to SATISFIED ");
     #endif
     _state = SATISFIED;
     #ifdef USE_SERIAL
@@ -139,9 +139,9 @@ void Panda::transitionSatisfiedState()
 void Panda::transitionHappyState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to HAPPY "));
+    Serial.print(" to HAPPY ");
     #endif
     _state = HAPPY;
     #ifdef USE_SERIAL
@@ -155,9 +155,9 @@ void Panda::transitionHappyState()
 void Panda::transitionSickState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to SICK "));
+    Serial.print(" to SICK ");
     #endif
     _state = SICK;
     #ifdef USE_SERIAL
@@ -171,9 +171,9 @@ void Panda::transitionSickState()
 void Panda::transitionWasteState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to WASTE "));
+    Serial.print(" to WASTE ");
     #endif
     _state = WASTE;
     #ifdef USE_SERIAL
@@ -187,9 +187,9 @@ void Panda::transitionWasteState()
 void Panda::transitionHungryState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to HUNGRY "));
+    Serial.print(" to HUNGRY ");
     #endif
     _state = HUNGRY;
     #ifdef USE_SERIAL
@@ -203,9 +203,9 @@ void Panda::transitionHungryState()
 void Panda::transitionTiredState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to TIRED "));
+    Serial.print(" to TIRED ");
     #endif
     _state = TIRED;
     #ifdef USE_SERIAL
@@ -219,9 +219,9 @@ void Panda::transitionTiredState()
 void Panda::transitionAsleepState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to ASLEEP "));
+    Serial.print(" to ASLEEP ");
     #endif
     _state = ASLEEP;
     #ifdef USE_SERIAL
@@ -237,9 +237,9 @@ void Panda::transitionAsleepState()
 void Panda::transitionBoredState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to BORED "));
+    Serial.print(" to BORED ");
     #endif
     _state = BORED;
     #ifdef USE_SERIAL
@@ -253,9 +253,9 @@ void Panda::transitionBoredState()
 void Panda::transitionFakeNeedsAttentionState()
 {
     #ifdef USE_SERIAL
-    Serial.print(F("State transition from "));
+    Serial.print("State transition from ");
     Serial.print(_state);
-    Serial.print(F(" to FNA "));
+    Serial.print(" to FNA ");
     #endif
     _state = FAKE_NEED_ATTENTION;
     #ifdef USE_SERIAL
@@ -315,7 +315,7 @@ void Panda::callback()
         
         default:
             #ifdef USE_SERIAL
-            Serial.print(F("Got unhandled state "));
+            Serial.print("Got unhandled state ");
             Serial.println(_state);
             #endif
             transitionNeutralState();
@@ -425,9 +425,9 @@ void Panda::callbackAsleepState()
         // Check back in a bit if still asleep
         _pandaStateTask.restartDelayed(getDelayLong());
         #ifdef USE_SERIAL
-        Serial.print(F("Asleep for "));
+        Serial.print("Asleep for ");
         Serial.print(millis() - _sleepStartTime);
-        Serial.print(F(" out of "));
+        Serial.print(" out of ");
         Serial.println(SLEEP_TIME);
         #endif
     }
@@ -503,7 +503,7 @@ void Panda::displayNeutralState()
     drawMenu();
     _animator.showFace(neutralFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Neutral"));
+    _display.println("Neutral");
     _display.display();
 }
 
@@ -513,7 +513,7 @@ void Panda::displaySatisfiedState()
     drawMenu();
     _animator.showFace(satisfiedFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Satisfied"));
+    _display.println("Satisfied");
     _display.display();
 }
 
@@ -523,7 +523,7 @@ void Panda::displayHappyState()
     drawMenu();
     _animator.showFace(happyFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Happy"));
+    _display.println("Happy");
     _display.display();
 }
 
@@ -533,7 +533,7 @@ void Panda::displaySickState()
     drawMenu();
     _animator.showFace(sickFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Sick"));
+    _display.println("Sick");
     _display.display();
 }
 
@@ -544,7 +544,7 @@ void Panda::displayWasteState()
     _animator.showFace(boredFace, _lightsOn);
     _display.drawBitmap(WASTE_LEFT, WASTE_TOP, waste, ICON_WIDTH, ICON_HEIGHT, _fgColor);
     _display.setCursor(32, 56);
-    _display.println(F("Waste"));
+    _display.println("Waste");
     _display.display();
 }
 
@@ -554,7 +554,7 @@ void Panda::displayHungryState()
     drawMenu();
     _animator.showFace(hungryFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Hungry"));
+    _display.println("Hungry");
     _display.display();
 }
 
@@ -564,7 +564,7 @@ void Panda::displayTiredState()
     drawMenu();
     _animator.showFace(tiredFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Tired"));
+    _display.println("Tired");
     _display.display();
 }
 
@@ -574,7 +574,7 @@ void Panda::displayAsleepState()
     drawMenu();
     _animator.showFace(asleepFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Asleep"));
+    _display.println("Asleep");
     _display.display();
 }
 
@@ -584,7 +584,7 @@ void Panda::displayBoredState()
     drawMenu();
     _animator.showFace(boredFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("Bored"));
+    _display.println("Bored");
     _display.display();
 }
 
@@ -595,7 +595,7 @@ void Panda::displayFakeNeedsAttentionState()
     // TODO randomly pick a fake attention image
     _animator.showFace(hungryFace, _lightsOn);
     _display.setCursor(32, 56);
-    _display.println(F("FNA"));
+    _display.println("FNA");
     _display.display();
 }
 
@@ -683,7 +683,7 @@ void Panda::pressB()
         
         default:
             #ifdef USE_SERIAL
-            Serial.println(F("Unknown button state"));
+            Serial.println("Unknown button state");
             #endif
             _menuIndex = 0;  // Reset it I guess
             break;
@@ -698,7 +698,7 @@ void Panda::pressC()
 void Panda::buttonFood()
 {
     #ifdef USE_SERIAL
-    Serial.println(F("Food button"));
+    Serial.println("Food button");
     #endif
     if (_state == HUNGRY)
     {
@@ -709,7 +709,7 @@ void Panda::buttonFood()
 void Panda::buttonLight()
 {
     #ifdef USE_SERIAL
-    Serial.println(F("Light button"));
+    Serial.println("Light button");
     #endif
     if (_lightsOn)
         lightsOff();
@@ -720,7 +720,7 @@ void Panda::buttonLight()
 void Panda::buttonPlay()
 {
     #ifdef USE_SERIAL
-    Serial.println(F("Play button"));
+    Serial.println("Play button");
     #endif
     if (_state == BORED)
     {
@@ -731,7 +731,7 @@ void Panda::buttonPlay()
 void Panda::buttonDoctor()
 {
     #ifdef USE_SERIAL
-    Serial.println(F("Doctor button"));
+    Serial.println("Doctor button");
     #endif
     if (_state == SICK)
     {
@@ -742,7 +742,7 @@ void Panda::buttonDoctor()
 void Panda::buttonToilet()
 {
     #ifdef USE_SERIAL
-    Serial.println(F("Toilet button"));
+    Serial.println("Toilet button");
     #endif
     if (_state == WASTE)
     {
@@ -754,14 +754,14 @@ void Panda::buttonToilet()
 void Panda::buttonInfo()
 {
     #ifdef USE_SERIAL
-    Serial.println(F("Info button"));
+    Serial.println("Info button");
     #endif
 }
 
 void Panda::buttonDiscipline()
 {
     #ifdef USE_SERIAL
-    Serial.println(F("Discipline button"));
+    Serial.println("Discipline button");
     #endif
 }
 
@@ -771,7 +771,7 @@ uint32_t Panda::getDelayLong()
 {
     uint32_t delay = (1.0 * _attentionFrequency / 100) * (DELAY_LONG_LOW + (DELAY_LONG_HIGH - DELAY_LONG_LOW) * (1.0 * rand() / RAND_MAX));
     #ifdef USE_SERIAL
-    Serial.print(F("Got long delay of "));
+    Serial.print("Got long delay of ");
     Serial.println(delay);
     #endif
     return delay;
@@ -781,7 +781,7 @@ uint32_t Panda::getDelayMedium()
 {
     uint32_t delay = (1.0 * _attentionFrequency / 100) * (DELAY_MEDIUM_LOW + (DELAY_MEDIUM_HIGH - DELAY_MEDIUM_LOW) * (1.0 * rand() / RAND_MAX));
     #ifdef USE_SERIAL
-    Serial.print(F("Got medium delay of "));
+    Serial.print("Got medium delay of ");
     Serial.println(delay);
     #endif
     return delay;
@@ -791,7 +791,7 @@ uint32_t Panda::getDelayShort()
 {
     uint32_t delay = (1.0 * _attentionFrequency / 100) * (DELAY_SHORT_LOW + (DELAY_SHORT_HIGH - DELAY_SHORT_LOW) * (1.0 * rand() / RAND_MAX));
     #ifdef USE_SERIAL
-    Serial.print(F("Got short delay of "));
+    Serial.print("Got short delay of ");
     Serial.println(delay);
     #endif
     return delay;

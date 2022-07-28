@@ -12,12 +12,12 @@ void Animator::callbackAnimation()
 {
   uint32_t startTime = millis();
   #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-  Serial.println(F("Animation callback triggered"));
+  Serial.println("Animation callback triggered");
   #endif
   if (activeAnimationElement == nullptr)
   {
     #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-    Serial.println(F("End of animation sequence"));
+    Serial.println("End of animation sequence");
     #endif
     return;
   }
@@ -25,9 +25,9 @@ void Animator::callbackAnimation()
   uint32_t endTime = millis();
   uint16_t drawTime = endTime - startTime;
   #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-  Serial.print(F("Completed draw in "));
+  Serial.print("Completed draw in ");
   Serial.print(drawTime);
-  Serial.println(F("ms"));
+  Serial.println("ms");
   #endif
   int32_t delay = getAnimDelay() - drawTime;
   if (delay < 0)
@@ -39,12 +39,12 @@ void Animator::callbackAnimation()
 void Animator::callbackSound()
 {
   #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-  Serial.println(F("Sound callback triggered"));
+  Serial.println("Sound callback triggered");
   #endif
   if (activeSoundElement == nullptr)
   {
     #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-    Serial.println(F("End of sound sequence"));
+    Serial.println("End of sound sequence");
     #endif
     return;
   }
@@ -60,7 +60,7 @@ void Animator::startAnimationSequence(const AnimationSequence &sequence, bool in
 {
   _sequenceInvert = invert;
   #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-  Serial.print(F("Starting animation sequence "));
+  Serial.print("Starting animation sequence ");
   Serial.println(sequence.id);
   #endif
   activeAnimationElement = (AnimationElement*) pgm_read_ptr(&sequence.head);
@@ -87,7 +87,7 @@ void Animator::showFace(const AnimationSequence &face, bool invert)
 void Animator::startSoundSequence(const SoundSequence &sequence)
 {
   #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-  Serial.print(F("Starting sound sequence "));
+  Serial.print("Starting sound sequence ");
   Serial.println(sequence.id);
   #endif
   activeSoundElement = (SoundElement *) pgm_read_ptr(&sequence.head);
@@ -99,16 +99,16 @@ void Animator::startSoundSequence(const SoundSequence &sequence)
 void Animator::drawActiveAnimationElement()
 {
   #if defined USE_SERIAL && defined USE_SERIAL_ANIMATOR
-  Serial.println(F("Called drawActiveAnimationElement"));
-  Serial.print(F("x="));
+  Serial.println("Called drawActiveAnimationElement");
+  Serial.print("x=");
   Serial.print(getAnimX());
-  Serial.print(F(" y="));
+  Serial.print(" y=");
   Serial.print(getAnimY());
-  Serial.print(F(" w="));
+  Serial.print(" w=");
   Serial.print(getAnimW());
-  Serial.print(F(" h="));
+  Serial.print(" h=");
   Serial.print(getAnimH());
-  Serial.print(F(" delay="));
+  Serial.print(" delay=");
   Serial.println(getAnimDelay());
   #endif
   int16_t byteWidth = (getAnimW() + 7) / 8;

@@ -63,7 +63,7 @@ void setup() {
   #ifdef USE_SERIAL
   Serial.begin(9600);
   while(!Serial);  // While necessary-ish for Serial, this gets in the way of the task scheduler.
-  Serial.println(F("Serial enabled"));
+  Serial.println("Serial enabled");
   #endif
 
   // Seed the PRNG
@@ -103,13 +103,13 @@ void btnCheck()
     if (a == HIGH)
     {
       #ifdef USE_SERIAL
-      Serial.println(F("Button A UP"));
+      Serial.println("Button A UP");
       #endif
     }
     else
     {
       #ifdef USE_SERIAL
-      Serial.println(F("Button A DOWN"));
+      Serial.println("Button A DOWN");
       #endif
       panda.pressA();
     }
@@ -127,13 +127,13 @@ void btnCheck()
     if (b == HIGH)
     {
       #ifdef USE_SERIAL
-      Serial.println(F("Button B UP"));
+      Serial.println("Button B UP");
       #endif
     }
     else
     {
       #ifdef USE_SERIAL
-      Serial.println(F("Button B DOWN"));
+      Serial.println("Button B DOWN");
       #endif
       panda.pressB();
     }
@@ -151,13 +151,13 @@ void btnCheck()
     if (c == HIGH)
     {
       #ifdef USE_SERIAL
-      Serial.println(F("Button C UP"));
+      Serial.println("Button C UP");
       #endif
     }
     else
     {
       #ifdef USE_SERIAL
-      Serial.println(F("Button C DOWN"));
+      Serial.println("Button C DOWN");
       #endif
       panda.pressC();
     }
