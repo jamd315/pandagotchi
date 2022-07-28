@@ -37,7 +37,7 @@ Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
 Animator animator(animTask, soundTask, display, SPEAKER_PIN);
 Task pandaTask(TASK_IMMEDIATE, 0, callbackPandaWrapper, &ts, true);
 Panda panda(pandaTask, display, animator);
-Task testTask(4000, TASK_FOREVER, test, &ts, true);
+//Task testTask(11000, TASK_FOREVER, test, &ts, true);
 
 
 void setup() {
@@ -47,9 +47,6 @@ void setup() {
   pinMode(BTN_C_PIN, INPUT_PULLUP);
   pinMode(ERROR_LED_PIN, OUTPUT);
   digitalWrite(ERROR_LED_PIN, LOW); 
-  
-  // Seed the PRNG
-  randomSeed(analogRead(0) * millis());
 
   // Start the SSD 1306 display
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
@@ -71,7 +68,15 @@ void setup() {
   Serial.println(F("Serial enabled"));
   #endif
 
-  //panda.start();
+  // Seed the PRNG
+  uint32_t seed = millis() * analogRead(0);
+  #ifdef USE_SERIAL
+  Serial.print("Using seed ");
+  Serial.println(seed);
+  #endif
+  srand(seed);
+
+  panda.start();
 }
 
 void loop() {
@@ -149,26 +154,52 @@ void callbackSoundWrapper()
 
 void callbackPandaWrapper()
 {
-  //panda.callback();
+  panda.callback();
 }
 
 void test()
 {
-  animator.showFace(satisfiedFace, true);
-  panda.drawMenu();
+  panda.displayNeutralState();
   showStatus();
-  //animator.startAnimationSequence(cleanAnimation, true);
+  delay(1000);
+  panda.displaySatisfiedState();
+  showStatus();
+  delay(1000);
+  panda.displayHappyState();
+  showStatus();
+  delay(1000);
+  panda.displaySickState();
+  showStatus();
+  delay(1000);
+  panda.displayWasteState();
+  showStatus();
+  delay(1000);
+  panda.displayHungryState();
+  showStatus();
+  delay(1000);
+  panda.displayTiredState();
+  showStatus();
+  delay(1000);
+  panda.displayAsleepState();
+  showStatus();
+  delay(1000);
+  panda.displayBoredState();
+  showStatus();
+  delay(1000);
+  panda.displayFakeNeedsAttentionState();
+  showStatus();
+  delay(1000);
 }
 
-#ifdef USE_SERIAL
 void showStatus()
 {
+  #ifdef USE_SERIAL
   Serial.print(millis());
   Serial.print("ms ");
   Serial.print(freeMemory());
   Serial.println(" bytes free");
+  #endif
   display.setCursor(20, 0);
   display.println(millis());
   display.display();
 }
-#endif
