@@ -4,6 +4,7 @@
 #include "Animator.h"
 #include "images.h"
 #include "faces.h"
+#include "sequences.h"
 
 const uint8_t *_menuBitmaps[] = {food, light, play, doctor, toilet, info, discipline, attention};
 
@@ -229,6 +230,7 @@ void Panda::transitionAsleepState()
     _attentionFlag = false;
     displayAsleepState();
     _sleepStartTime = millis();
+    _wakeBtnCount = 0;
     _pandaStateTask.restartDelayed(getDelayLong());
 }
 
@@ -422,6 +424,12 @@ void Panda::callbackAsleepState()
     {
         // Check back in a bit if still asleep
         _pandaStateTask.restartDelayed(getDelayLong());
+        #ifdef USE_SERIAL
+        Serial.print(F("Asleep for "));
+        Serial.print(millis() - _sleepStartTime);
+        Serial.print(F(" out of "));
+        Serial.println(SLEEP_TIME);
+        #endif
     }
 }
 
@@ -440,6 +448,55 @@ void Panda::callbackFakeNeedsAttentionState()
 
 
 #pragma region displays
+void Panda::redisplayFace()
+{
+    switch (_state)
+    {
+        case FAKE_NEED_ATTENTION:
+            displayFakeNeedsAttentionState();
+            break;
+        
+        case SICK:
+            displaySickState();
+            break;
+        
+        case WASTE:
+            displayWasteState();
+            break;
+        
+        case HUNGRY:
+            displayHungryState();
+            break;
+        
+        case TIRED:
+            displayTiredState();
+            break;
+        
+        case ASLEEP:
+            displayAsleepState();
+            break;
+        
+        case BORED:
+            displayBoredState();
+            break;
+        
+        case HAPPY:
+            displayHappyState();
+            break;
+        
+        case SATISFIED:
+            displaySatisfiedState();
+            break;
+        
+        case NEUTRAL:
+            displayNeutralState();
+            break;
+        
+        default:
+            break;
+    }
+}
+
 void Panda::displayNeutralState()
 {
     _display.clearDisplay();
@@ -589,13 +646,125 @@ void Panda::pressA()
 
 void Panda::pressB()
 {
+    _wakeBtnCount++;
+    if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
+    {
+        transitionNeutralState();
+    }
+    switch (_menuIndex)
+    {
+        case 0:
+            buttonFood();
+            break;
+        
+        case 1:
+            buttonLight();
+            break;
 
+        case 2:
+            buttonPlay();
+            break;
+
+        case 3:
+            buttonDoctor();
+            break;
+        
+        case 4:
+            buttonToilet();
+            break;
+        
+        case 5:
+            buttonInfo();
+            break;
+        
+        case 6:
+            buttonDiscipline();
+            break;
+        
+        default:
+            #ifdef USE_SERIAL
+            Serial.println(F("Unknown button state"));
+            #endif
+            _menuIndex = 0;  // Reset it I guess
+            break;
+    }
 }
 
 void Panda::pressC()
 {
 
 }
+
+void Panda::buttonFood()
+{
+    #ifdef USE_SERIAL
+    Serial.println(F("Food button"));
+    #endif
+    if (_state == HUNGRY)
+    {
+        transitionHappyState();
+    }
+}
+
+void Panda::buttonLight()
+{
+    #ifdef USE_SERIAL
+    Serial.println(F("Light button"));
+    #endif
+    if (_lightsOn)
+        lightsOff();
+    else
+        lightsOn();
+}
+
+void Panda::buttonPlay()
+{
+    #ifdef USE_SERIAL
+    Serial.println(F("Play button"));
+    #endif
+    if (_state == BORED)
+    {
+        transitionHappyState();
+    }
+}
+
+void Panda::buttonDoctor()
+{
+    #ifdef USE_SERIAL
+    Serial.println(F("Doctor button"));
+    #endif
+    if (_state == SICK)
+    {
+        transitionSatisfiedState();
+    }
+}
+
+void Panda::buttonToilet()
+{
+    #ifdef USE_SERIAL
+    Serial.println(F("Toilet button"));
+    #endif
+    if (_state == WASTE)
+    {
+        _animator.startAnimationSequence(cleanAnimation, _lightsOn);
+        transitionSatisfiedState();
+    }
+}
+
+void Panda::buttonInfo()
+{
+    #ifdef USE_SERIAL
+    Serial.println(F("Info button"));
+    #endif
+}
+
+void Panda::buttonDiscipline()
+{
+    #ifdef USE_SERIAL
+    Serial.println(F("Discipline button"));
+    #endif
+}
+
 #pragma endregion buttons
 
 uint32_t Panda::getDelayLong()
@@ -631,17 +800,23 @@ uint32_t Panda::getDelayShort()
 inline void Panda::lightsOn()
 {
     // Black on white, looks bright
+    _weights.Tired -= 100;
     _fgColor = SSD1306_BLACK;
     _bgColor = SSD1306_WHITE;
     _lightsOn = true;
+    drawMenu();
+    redisplayFace();
 }
 
 inline void Panda::lightsOff()
 {
     // White lights on black, looks dark
+    _weights.Tired += 100;
     _fgColor = SSD1306_WHITE;
     _bgColor = SSD1306_BLACK;
     _lightsOn = false;
+    drawMenu();
+    redisplayFace();
 }
 
 inline uint8_t Panda::clampedModify(uint8_t weight, int16_t difference)

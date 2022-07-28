@@ -22,7 +22,8 @@
 #define DELAY_SHORT_LOW 1000
 
 // Configurable
-#define SLEEP_TIME 28800000  // 8 hours in ms
+#define SLEEP_TIME 60000  // 1 minute
+#define WAKE_INTERACTION_COUNT 5  // Feels like there should be a better name
 // Percents
 #define UNDECAY_CHANCE 10
 #define HEALTH_GAIN_CHANCE 25
@@ -88,6 +89,7 @@ public:
     void callbackBoredState();
     void callbackFakeNeedsAttentionState();
 
+    void redisplayFace();
     void displayNeutralState();
     void displaySatisfiedState();
     void displayHappyState();
@@ -106,6 +108,13 @@ public:
     void pressA();
     void pressB();
     void pressC();
+    void buttonFood();
+    void buttonLight();
+    void buttonPlay();
+    void buttonDoctor();
+    void buttonToilet();
+    void buttonInfo();
+    void buttonDiscipline();
 
     uint32_t getDelayLong(); // Long time, e.g. time spent on neutral state or between asleep checks
     uint32_t getDelayMedium(); // Standard wait time before consequences, most actions
@@ -127,6 +136,7 @@ protected:
     uint8_t _menuIndex = 0;
     uint8_t _fgColor = 0;
     uint8_t _bgColor = 1;
+    uint8_t _wakeBtnCount = 0;
     // These can be modified with traits, all are percents
     uint8_t _attentionFrequency = 100;
     uint8_t _undecayChance = 100;
