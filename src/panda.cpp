@@ -444,7 +444,7 @@ void Panda::displayNeutralState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, neutral, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(neutralFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Neutral"));
     _display.display();
@@ -454,8 +454,7 @@ void Panda::displaySatisfiedState()
 {
     _display.clearDisplay();
     drawMenu();
-    //_display.drawBitmap(FACE_LEFT, FACE_TOP, satisfied, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
-    _animator.showFace(satisfiedFace, !_lightsOn);
+    _animator.showFace(satisfiedFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Satisfied"));
     _display.display();
@@ -465,8 +464,7 @@ void Panda::displayHappyState()
 {
     _display.clearDisplay();
     drawMenu();
-    //_display.drawBitmap(FACE_LEFT, FACE_TOP, happy, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
-    _animator.showFace(happyFace, !_lightsOn);
+    _animator.showFace(happyFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Happy"));
     _display.display();
@@ -476,7 +474,7 @@ void Panda::displaySickState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, sick, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(sickFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Sick"));
     _display.display();
@@ -486,7 +484,7 @@ void Panda::displayWasteState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, bored, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(boredFace, _lightsOn);
     _display.drawBitmap(WASTE_LEFT, WASTE_TOP, waste, ICON_WIDTH, ICON_HEIGHT, _fgColor);
     _display.setCursor(32, 56);
     _display.println(F("Waste"));
@@ -497,7 +495,7 @@ void Panda::displayHungryState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, hungry, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(hungryFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Hungry"));
     _display.display();
@@ -507,7 +505,7 @@ void Panda::displayTiredState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, tired, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(tiredFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Tired"));
     _display.display();
@@ -517,7 +515,7 @@ void Panda::displayAsleepState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, asleep, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(asleepFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Asleep"));
     _display.display();
@@ -527,7 +525,7 @@ void Panda::displayBoredState()
 {
     _display.clearDisplay();
     drawMenu();
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, bored, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(boredFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("Bored"));
     _display.display();
@@ -538,7 +536,7 @@ void Panda::displayFakeNeedsAttentionState()
     _display.clearDisplay();
     drawMenu();
     // TODO randomly pick a fake attention image
-    _display.drawBitmap(FACE_LEFT, FACE_TOP, hungry, FACE_WIDTH, FACE_HEIGHT, _fgColor, _bgColor);
+    _animator.showFace(hungryFace, _lightsOn);
     _display.setCursor(32, 56);
     _display.println(F("FNA"));
     _display.display();

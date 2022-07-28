@@ -10,8 +10,6 @@ void test();
 void callbackAnimationWrapper();
 void callbackSoundWrapper();
 void callbackPandaWrapper();
-#ifdef USE_SERIAL
 void showStatus();
-#endif
 
 #endif
