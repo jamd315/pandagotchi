@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -52,11 +51,13 @@ void setup() {
     error();
   }
   display.clearDisplay();
+  #ifdef DISPLAY_DEBUG
   display.setCursor(0, 0);
   display.setTextColor(SSD1306_WHITE, SSD1306_BLACK);  // Erase background when rendering text
   display.setTextSize(1);
   display.cp437(true);
   display.println("Display started");
+  #endif
   display.display();
 
   // Set up Serial if enabled
@@ -221,7 +222,9 @@ void showStatus()
   Serial.print(freeMemory());
   Serial.println(" bytes free");
   #endif
+  #ifdef DISPLAY_DEBUG
   display.setCursor(20, 0);
   display.println(millis());
   display.display();
+  #endif
 }
