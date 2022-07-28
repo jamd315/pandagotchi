@@ -106,7 +106,6 @@ class AnimationSequence:
                 if face_name not in self.face_map:
                     raise KeyError(f"Face '{face_name}' not found")
                 face = self.face_map[face_name]
-                print("\n".join(str(x) for x in face.elements))
                 new_elements.extend(face.elements)
             elif "loop" in raw_element:
                 new_elements = self.loop_handler(raw_element, new_elements, raw_element["loop"])
