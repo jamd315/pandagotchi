@@ -502,8 +502,10 @@ void Panda::displayNeutralState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(neutralFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Neutral");
+    #endif
     _display.display();
 }
 
@@ -512,8 +514,10 @@ void Panda::displaySatisfiedState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(satisfiedFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Satisfied");
+    #endif
     _display.display();
 }
 
@@ -522,8 +526,10 @@ void Panda::displayHappyState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(happyFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Happy");
+    #endif
     _display.display();
 }
 
@@ -532,8 +538,10 @@ void Panda::displaySickState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(sickFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Sick");
+    #endif
     _display.display();
 }
 
@@ -543,8 +551,10 @@ void Panda::displayWasteState()
     drawMenu();
     _animator.showFace(boredFace, _lightsOn);
     _display.drawBitmap(WASTE_LEFT, WASTE_TOP, waste, ICON_WIDTH, ICON_HEIGHT, _fgColor);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Waste");
+    #endif
     _display.display();
 }
 
@@ -553,8 +563,10 @@ void Panda::displayHungryState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(hungryFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Hungry");
+    #endif
     _display.display();
 }
 
@@ -563,8 +575,10 @@ void Panda::displayTiredState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(tiredFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Tired");
+    #endif
     _display.display();
 }
 
@@ -573,8 +587,10 @@ void Panda::displayAsleepState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(asleepFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Asleep");
+    #endif
     _display.display();
 }
 
@@ -583,8 +599,10 @@ void Panda::displayBoredState()
     _display.clearDisplay();
     drawMenu();
     _animator.showFace(boredFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("Bored");
+    #endif
     _display.display();
 }
 
@@ -594,8 +612,10 @@ void Panda::displayFakeNeedsAttentionState()
     drawMenu();
     // TODO randomly pick a fake attention image
     _animator.showFace(hungryFace, _lightsOn);
+    #ifdef DISPLAY_DEBUG
     _display.setCursor(32, 56);
     _display.println("FNA");
+    #endif
     _display.display();
 }
 
