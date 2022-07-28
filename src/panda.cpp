@@ -292,7 +292,7 @@ void Panda::callback()
             break;
         
         case HUNGRY:
-            callbackHappyState();
+            callbackHungryState();
             break;
         
         case TIRED:
@@ -300,7 +300,7 @@ void Panda::callback()
             break;
         
         case ASLEEP:
-            callbackTiredState();
+            callbackAsleepState();
             break;
         
         case BORED:
