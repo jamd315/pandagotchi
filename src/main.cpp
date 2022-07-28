@@ -22,9 +22,6 @@ uint8_t btn_C_state = HIGH;
 uint32_t btn_A_last_transition = 0;
 uint32_t btn_B_last_transition = 0;
 uint32_t btn_C_last_transition = 0;
-bool btn_A_flag = false;
-bool btn_B_flag = false;
-bool btn_C_flag = false;
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 Scheduler ts;
@@ -37,6 +34,7 @@ Task soundTask(TASK_IMMEDIATE, TASK_ONCE, callbackSoundWrapper, &ts, true);
 Animator animator(animTask, soundTask, display, SPEAKER_PIN);
 Task pandaTask(TASK_IMMEDIATE, 0, callbackPandaWrapper, &ts, true);
 Panda panda(pandaTask, display, animator);
+Task buttonTask(TASK_MILLISECOND, TASK_FOREVER, btnCheck, &ts, true);
 //Task testTask(11000, TASK_FOREVER, test, &ts, true);
 
 
@@ -98,15 +96,23 @@ void btnCheck()
   {
     btn_A_last_transition = millis();
     btn_A_state = a;
-    btn_A_flag = true;
     #ifdef USE_SERIAL
     Serial.print(millis());
     Serial.print(" ");
-    if (a == HIGH)
-      Serial.println(F("Button A UP"));
-    else
-      Serial.println(F("Button A DOWN"));
     #endif
+    if (a == HIGH)
+    {
+      #ifdef USE_SERIAL
+      Serial.println(F("Button A UP"));
+      #endif
+    }
+    else
+    {
+      #ifdef USE_SERIAL
+      Serial.println(F("Button A DOWN"));
+      #endif
+      panda.pressA();
+    }
   }
 
   uint8_t b = digitalRead(BTN_B_PIN);
@@ -114,15 +120,23 @@ void btnCheck()
   {
     btn_B_last_transition = millis();
     btn_B_state = b;
-    btn_B_flag = true;
     #ifdef USE_SERIAL
     Serial.print(millis());
     Serial.print(" ");
-    if (b == HIGH)
-      Serial.println(F("Button B UP"));
-    else
-      Serial.println(F("Button B DOWN"));
     #endif
+    if (b == HIGH)
+    {
+      #ifdef USE_SERIAL
+      Serial.println(F("Button B UP"));
+      #endif
+    }
+    else
+    {
+      #ifdef USE_SERIAL
+      Serial.println(F("Button B DOWN"));
+      #endif
+      panda.pressB();
+    }
   }
 
   uint8_t c = digitalRead(BTN_C_PIN);
@@ -130,15 +144,23 @@ void btnCheck()
   {
     btn_C_last_transition = millis();
     btn_C_state = c;
-    btn_C_flag = true;
     #ifdef USE_SERIAL
     Serial.print(millis());
     Serial.print(" ");
-    if (c == HIGH)
-      Serial.println(F("Button C UP"));
-    else
-      Serial.println(F("Button C DOWN"));
     #endif
+    if (c == HIGH)
+    {
+      #ifdef USE_SERIAL
+      Serial.println(F("Button C UP"));
+      #endif
+    }
+    else
+    {
+      #ifdef USE_SERIAL
+      Serial.println(F("Button C DOWN"));
+      #endif
+      panda.pressC();
+    }
   }
 }
 

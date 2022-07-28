@@ -102,6 +102,11 @@ public:
     uint8_t getMenuX(uint8_t index);
     uint8_t getMenuY(uint8_t index);
 
+    // Buttons
+    void pressA();
+    void pressB();
+    void pressC();
+
     uint32_t getDelayLong(); // Long time, e.g. time spent on neutral state or between asleep checks
     uint32_t getDelayMedium(); // Standard wait time before consequences, most actions
     uint32_t getDelayShort(); // Actions that need to be remedied quickly

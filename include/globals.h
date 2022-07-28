@@ -32,7 +32,7 @@
 #define BTN_C_PIN 6
 
 // Misc
-#define DEBOUNCE_TIME 150
+#define DEBOUNCE_TIME 100
 
 // Settings (comment out as needed)
 #define USE_SERIAL

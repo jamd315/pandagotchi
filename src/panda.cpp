@@ -554,9 +554,6 @@ void Panda::drawMenu()
   {
     _display.drawBitmap(getMenuX(_menuIndex), getMenuY(_menuIndex), _menuBitmaps[_menuIndex], ICON_WIDTH, ICON_HEIGHT, _bgColor, _fgColor);
   }
-  // TODO temp debugging
-  _menuIndex++;
-  _menuIndex %= 7;
   // Show needs attention if _attentionFlag
   if (_attentionFlag)
   {
@@ -580,6 +577,26 @@ uint8_t Panda::getMenuY(uint8_t index)
 }
 #pragma endregion displays
 
+
+#pragma region buttons
+void Panda::pressA()
+{
+    _menuIndex++;
+    _menuIndex %= 7;
+    drawMenu();
+    _display.display();
+}
+
+void Panda::pressB()
+{
+
+}
+
+void Panda::pressC()
+{
+
+}
+#pragma endregion buttons
 
 uint32_t Panda::getDelayLong()
 {
