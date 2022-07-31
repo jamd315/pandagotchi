@@ -755,7 +755,7 @@ void Panda::buttonDoctor()
     #endif
     if (_state == SICK)
     {
-        transitionSatisfiedState();
+        transitionTiredState();
     }
 }
 
@@ -766,7 +766,8 @@ void Panda::buttonToilet()
     #endif
     if (_state == WASTE)
     {
-        _animator.startAnimationSequence(cleanAnimation, _lightsOn);
+        //_animator.startAnimationSequence(cleanAnimation, _lightsOn);
+        _animator.cleanAnimation();  // Blocking
         transitionSatisfiedState();
     }
 }

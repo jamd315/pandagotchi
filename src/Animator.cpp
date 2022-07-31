@@ -1,6 +1,7 @@
 #include <avr/pgmspace.h>
 #include "Animator.h"
 #include "globals.h"
+#include "images.h"
 
 
 Animator::Animator(Task &animTask, Task &soundTask, Adafruit_SSD1306 &display, uint8_t speakerPin): _animTask(animTask), _soundTask(soundTask), _display(display), _speakerPin(speakerPin)
@@ -157,6 +158,24 @@ void Animator::drawActiveAnimationElement()
   _display.endWrite();
   if (!drawOnly)
   {
+    _display.display();
+  }
+}
+
+// Just block for like 2.4s, it's probably fine
+void Animator::cleanAnimation(bool invert)
+{
+  uint8_t fgColor = 1;
+  uint8_t bgColor = 0;
+  if (invert)
+  {
+    fgColor = 0;
+    bgColor = 1;
+  }
+  for (uint8_t x = SCREEN_WIDTH - ICON_WIDTH; x > ICON_WIDTH; x-=2)
+  {
+    _display.drawBitmap(x, 0, wave, 8, 64, fgColor, bgColor);
+    delay(50);
     _display.display();
   }
 }

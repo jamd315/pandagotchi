@@ -61,6 +61,9 @@ public:
     void startSoundSequence(const SoundSequence &sequence);
     void drawActiveAnimationElement();
 
+    // Hardcoded animations that need some context
+    void cleanAnimation(bool invert=false);
+
 protected:
     Task &_animTask;
     Task &_soundTask;
@@ -69,6 +72,7 @@ protected:
     Adafruit_SSD1306 &_display;
     uint8_t _speakerPin;
     bool _sequenceInvert = false;
+    uint8_t xContext;  // Used for hardcoded animations
     inline uint8_t getAnimX();
     inline uint8_t getAnimY();
     inline uint8_t getAnimW();
