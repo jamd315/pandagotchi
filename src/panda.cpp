@@ -658,6 +658,11 @@ uint8_t Panda::getMenuY(uint8_t index)
 #pragma region buttons
 void Panda::pressA()
 {
+    _wakeBtnCount++;
+    if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
+    {
+        transitionTiredState();
+    }
     _menuIndex++;
     _menuIndex %= 7;
     drawMenu();
@@ -669,7 +674,7 @@ void Panda::pressB()
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
-        transitionNeutralState();
+        transitionTiredState();
     }
     switch (_menuIndex)
     {
@@ -712,7 +717,11 @@ void Panda::pressB()
 
 void Panda::pressC()
 {
-
+    _wakeBtnCount++;
+    if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
+    {
+        transitionTiredState();
+    }
 }
 
 void Panda::buttonFood()
