@@ -116,6 +116,10 @@ public:
     void buttonInfo();
     void buttonDiscipline();
 
+    // EEPROM save and load
+    void loadState();
+    void saveState();
+
     uint32_t getDelayLong(); // Long time, e.g. time spent on neutral state or between asleep checks
     uint32_t getDelayMedium(); // Standard wait time before consequences, most actions
     uint32_t getDelayShort(); // Actions that need to be remedied quickly

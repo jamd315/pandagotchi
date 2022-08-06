@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <EEPROM.h>
 #include "globals.h"
 #include "panda.h"
 #include "Animator.h"
@@ -793,9 +794,36 @@ void Panda::buttonDiscipline()
     #ifdef USE_SERIAL
     Serial.println("Discipline button");
     #endif
+    if (_state == FAKE_NEED_ATTENTION)
+    {
+        _mischievousChance = clampedModify(_mischievousChance, -5);
+        transitionHungryState();
+    }
 }
 
 #pragma endregion buttons
+
+void Panda::loadState()
+{
+    EEPROM.update(0, _health);
+    EEPROM.update(1, _attentionFrequency);
+    EEPROM.update(2, _undecayChance);
+    EEPROM.update(3, _healthGainChance);
+    EEPROM.update(4, _mischievousChance);
+    EEPROM.update(5, _wasteToSickChance);
+    EEPROM.update(6, _hungryToSickChance);
+}
+
+void Panda::saveState()
+{
+    _health = EEPROM.read(0);
+    _attentionFrequency = EEPROM.read(1);
+    _undecayChance = EEPROM.read(2);
+    _healthGainChance = EEPROM.read(3);
+    _mischievousChance = EEPROM.read(4);
+    _wasteToSickChance = EEPROM.read(5);
+    _hungryToSickChance = EEPROM.read(6);
+}
 
 uint32_t Panda::getDelayLong()
 {
