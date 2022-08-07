@@ -172,7 +172,7 @@ void Animator::cleanAnimation(bool invert)
     fgColor = 0;
     bgColor = 1;
   }
-  for (uint8_t x = SCREEN_WIDTH - ICON_WIDTH; x > ICON_WIDTH; x-=2)
+  for (uint8_t x = SCREEN_WIDTH - ICON_WIDTH - 8; x > ICON_WIDTH; x-=2)
   {
     _display.drawBitmap(x, 0, wave, 8, 64, fgColor, bgColor);
     delay(50);

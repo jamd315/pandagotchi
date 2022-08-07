@@ -444,6 +444,7 @@ void Panda::callbackAsleepState()
 {
     if (millis() - _sleepStartTime > SLEEP_TIME)
     {
+        lightsOn();  // Turn the lights on automatically after good sleep
         transitionSatisfiedState();
     }
     else
@@ -697,12 +698,6 @@ uint8_t Panda::getMenuY(uint8_t index)
 #pragma region buttons
 void Panda::pressA()
 {
-    if (_state == INFO_SCREEN)
-    {
-        exitInfoScreen();
-        return;
-    }
-    // Exiting info screen doesn't count towards waking
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
@@ -716,12 +711,6 @@ void Panda::pressA()
 
 void Panda::pressB()
 {
-    if (_state == INFO_SCREEN)
-    {
-        exitInfoScreen();
-        return;
-    }
-    // Exiting info screen doesn't count towards waking
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
