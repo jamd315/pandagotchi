@@ -20,6 +20,11 @@ Panda::Panda(Task &pandaStateTask, Adafruit_SSD1306 &display, Animator &animator
         .Tired = 32,
         .Bored = 64 
     };
+    _display.setTextColor(SSD1306_WHITE);
+    _display.setTextSize(1);
+    _display.setFont(NULL);
+    _display.cp437(true);
+    _display.setCursor(0, 0);
 };
 
 void Panda::start()
@@ -266,12 +271,35 @@ void Panda::transitionFakeNeedsAttentionState()
     displayFakeNeedsAttentionState();
     _pandaStateTask.restartDelayed(getDelayMedium());
 }
+
+void Panda::transitionInfoScreen()
+{
+    _tmpState = _state;
+    _state = INFO_SCREEN;
+    displayInfoScreen();
+    digitalWrite(ERROR_LED_PIN, HIGH);
+}
+
+// Preferred if this is called before callbacks are triggered so we're in the right state.
+void Panda::exitInfoScreen()
+{
+    _state = _tmpState;
+    drawMenu();
+    redisplayFace();
+    digitalWrite(ERROR_LED_PIN, LOW);
+}
+
 #pragma endregion transitions
 
 
 #pragma region callbacks
 void Panda::callback()
 {
+    // Do this first
+    if (_state == INFO_SCREEN)
+    {
+        exitInfoScreen();
+    }
     switch (_state)
     {
         case NEUTRAL:
@@ -353,10 +381,7 @@ void Panda::callbackHappyState()
     // Possibility to gain health after being happy
     if (rand() % 100 < (HEALTH_GAIN_CHANCE * _healthGainChance / 100))
     {
-        if (_health < 10)
-        {
-            _health++;
-        }
+        _health = clampedModify(_health, 1, 0, 10);
     }
 
     if (rand() % 100 < (MISCHIEVIOUS_CHANCE * _mischievousChance / 100))
@@ -372,7 +397,7 @@ void Panda::callbackHappyState()
 void Panda::callbackSickState()
 {
     // Happens when SICK status hasn't been addressed
-    _health--;
+    _health = clampedModify(_health, -1, 0, 10);
     transitionSickState();
 }
 
@@ -620,6 +645,19 @@ void Panda::displayFakeNeedsAttentionState()
     _display.display();
 }
 
+void Panda::displayInfoScreen()
+{
+    _display.clearDisplay();
+    // Default font is 6 wide, 8 high
+    _display.setCursor(0, 0);
+    _display.print("Health ");
+    _display.println(_health);
+    _display.print("Mischief ");
+    _display.print(_mischievousChance);
+    _display.println("%");
+    _display.display();
+}
+
 void Panda::drawMenu()
 {
   // Draws the menu but does NOT display it
@@ -659,6 +697,12 @@ uint8_t Panda::getMenuY(uint8_t index)
 #pragma region buttons
 void Panda::pressA()
 {
+    if (_state == INFO_SCREEN)
+    {
+        exitInfoScreen();
+        return;
+    }
+    // Exiting info screen doesn't count towards waking
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
@@ -672,6 +716,12 @@ void Panda::pressA()
 
 void Panda::pressB()
 {
+    if (_state == INFO_SCREEN)
+    {
+        exitInfoScreen();
+        return;
+    }
+    // Exiting info screen doesn't count towards waking
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
@@ -718,6 +768,12 @@ void Panda::pressB()
 
 void Panda::pressC()
 {
+    if (_state == INFO_SCREEN)
+    {
+        exitInfoScreen();
+        return;
+    }
+    // Exiting info screen doesn't count towards waking
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
@@ -787,6 +843,7 @@ void Panda::buttonInfo()
     #ifdef USE_SERIAL
     Serial.println("Info button");
     #endif
+    transitionInfoScreen();
 }
 
 void Panda::buttonDiscipline()
@@ -877,11 +934,17 @@ inline void Panda::lightsOff()
     redisplayFace();
 }
 
-inline uint8_t Panda::clampedModify(uint8_t weight, int16_t difference)
+uint8_t Panda::clampedModify(uint8_t value, int16_t difference, uint8_t min, uint8_t max)
 {
-    if (weight + difference > UINT8_MAX)
-        return UINT8_MAX;
-    if (weight < (-1 * difference))
-        return 0;
-    return weight + difference;
+    int16_t result = value + difference;
+    bool positive = difference >= 0;
+    if ((result < value && positive) || (result > max))  // Overflow or exceeds the max
+    {
+        return max;
+    }
+    if ((result > value && !positive) || (result < min))  // Underflow or less than the min
+    {
+        return min;
+    }
+    return (uint8_t) result;
 }

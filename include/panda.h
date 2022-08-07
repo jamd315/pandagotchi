@@ -24,6 +24,7 @@
 // Configurable
 #define SLEEP_TIME 60000  // 1 minute
 #define WAKE_INTERACTION_COUNT 5  // Feels like there should be a better name
+#define HEALTH_MAX 10
 // Percents
 #define UNDECAY_CHANCE 10
 #define HEALTH_GAIN_CHANCE 25
@@ -44,6 +45,7 @@ typedef enum PandaState
     HAPPY,
     SATISFIED,
     NEUTRAL,
+    INFO_SCREEN,
     NO_STATE = 255
 } PandaState;
 
@@ -76,6 +78,8 @@ public:
     void transitionAsleepState();
     void transitionBoredState();
     void transitionFakeNeedsAttentionState();
+    void transitionInfoScreen();
+    void exitInfoScreen();
 
     void callback();
     void callbackNeutralState();
@@ -100,6 +104,7 @@ public:
     void displayAsleepState();
     void displayBoredState();
     void displayFakeNeedsAttentionState();
+    void displayInfoScreen();
     void drawMenu();
     uint8_t getMenuX(uint8_t index);
     uint8_t getMenuY(uint8_t index);
@@ -123,12 +128,13 @@ public:
     uint32_t getDelayLong(); // Long time, e.g. time spent on neutral state or between asleep checks
     uint32_t getDelayMedium(); // Standard wait time before consequences, most actions
     uint32_t getDelayShort(); // Actions that need to be remedied quickly
-    inline uint8_t clampedModify(uint8_t weight, int16_t difference);
+    uint8_t clampedModify(uint8_t value, int16_t difference, uint8_t min=0, uint8_t max=255);
     inline void lightsOn();
     inline void lightsOff();
 
 protected:
     PandaState _state = NO_STATE;
+    PandaState _tmpState = NO_STATE;  // Used to hold state while in the info screen or FNA state
     StateWeights _weights;
     Task &_pandaStateTask;
     Adafruit_SSD1306 &_display;
