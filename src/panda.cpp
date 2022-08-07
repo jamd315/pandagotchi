@@ -698,6 +698,10 @@ uint8_t Panda::getMenuY(uint8_t index)
 #pragma region buttons
 void Panda::pressA()
 {
+    if (_state == INFO_SCREEN)  // Block input on info screen
+    {
+        return;
+    }
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
@@ -711,6 +715,10 @@ void Panda::pressA()
 
 void Panda::pressB()
 {
+    if (_state == INFO_SCREEN)  // Block input on menu screen
+    {
+        return;
+    }
     _wakeBtnCount++;
     if (_state == ASLEEP && _wakeBtnCount >= WAKE_INTERACTION_COUNT)
     {
